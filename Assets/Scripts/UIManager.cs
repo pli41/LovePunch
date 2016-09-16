@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
 
     public GameObject[] beforeGameComponents;
     public GameObject[] inGameComponents;
+    public GameObject[] betweenLevelsComponents;
     public GameObject[] afterGameComponents;
 
     // Use this for initialization
@@ -33,18 +34,28 @@ public class UIManager : MonoBehaviour {
         {
             SetGameObjects(beforeGameComponents, true);
             SetGameObjects(inGameComponents, false);
+            SetGameObjects(betweenLevelsComponents, false);
             SetGameObjects(afterGameComponents, false);
         }
         else if (GameManager.state == GameManager.gameState.InGame)
         {
             SetGameObjects(beforeGameComponents, false);
             SetGameObjects(inGameComponents, true);
+            SetGameObjects(betweenLevelsComponents, false);
+            SetGameObjects(afterGameComponents, false);
+        }
+        else if (GameManager.state == GameManager.gameState.BetweenLevels)
+        {
+            SetGameObjects(beforeGameComponents, false);
+            SetGameObjects(inGameComponents, false);
+            SetGameObjects(betweenLevelsComponents, true);
             SetGameObjects(afterGameComponents, false);
         }
         else if (GameManager.state == GameManager.gameState.AfterGame)
         {
             SetGameObjects(beforeGameComponents, false);
             SetGameObjects(inGameComponents, false);
+            SetGameObjects(betweenLevelsComponents, false);
             SetGameObjects(afterGameComponents, true);
         }
     }

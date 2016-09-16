@@ -12,4 +12,6 @@ public class BloodStain : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    
 }

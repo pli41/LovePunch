@@ -69,8 +69,7 @@ public class Enemy : MonoBehaviour, Damagable {
         healthBarsObj = GameObject.FindGameObjectWithTag("EnemyHealthBars");
         healthBarObj = (GameObject)Instantiate(healthBarObj, healthBarsObj.GetComponent<Transform>());
         player = GameObject.FindGameObjectWithTag("Player");
-		healthBarObj.transform.position = transform.position + UIOffset;
-		     
+		healthBarObj.transform.position = transform.position + UIOffset;   
         healthBarObj.GetComponent<Slider>().maxValue = health;
     }
 
@@ -83,7 +82,6 @@ public class Enemy : MonoBehaviour, Damagable {
             healthBarObj.transform.LookAt(new Vector3(player.transform.position.x, healthBarObj.transform.position.y, player.transform.position.z));
             healthBarObj.GetComponent<RectTransform>().localScale = initialScale;
         }
-        
     }
 
 	public void Disable()
@@ -126,6 +124,11 @@ public class Enemy : MonoBehaviour, Damagable {
         {
             Death();
         }
+
+        if (GameManager.state != GameManager.gameState.InGame)
+        {
+            Disable();
+        }
     }
 
     public bool CheckDeath()
@@ -149,9 +152,9 @@ public class Enemy : MonoBehaviour, Damagable {
 
     protected virtual void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Ground") && isDead)
+        if (col.gameObject.CompareTag("Ground") && isDead && transformVelocity.magnitude <= 0.1f)
         {
-            //bloodStain.SetActive(true);
+            Instantiate(bloodStain, col.contacts[0].point, Quaternion.Euler(90f, 0f, 0f));
         }
     }
 

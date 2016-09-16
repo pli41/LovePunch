@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour {
 
     public GameObject[] minions;
     public LevelManager levelManager;
-    public enum gameState {BeforeGame, InGame, AfterGame };
+    public enum gameState {BeforeGame, InGame, BetweenLevels, AfterGame };
     public static gameState state;
+
 
 	// Use this for initialization
 	void Start () {
@@ -40,11 +41,14 @@ public class GameManager : MonoBehaviour {
         {
 			CheckPrinceHealth();
         }
+        else if (state == gameState.BetweenLevels)
+        {
+
+        }
         else if (state == gameState.AfterGame)
         {
 
         }
-        
 	}
 
     public static void StartGame()

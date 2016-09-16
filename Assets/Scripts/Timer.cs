@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 public delegate void Delegate();
 public delegate void DelegateWithOneParam(GameObject obj);
+public delegate void DelegateWithTwoParam(GameObject obj1, GameObject obj2);
 
 public class Timer
 {
@@ -14,7 +15,9 @@ public class Timer
     private bool repeat;
     Delegate callback;
     DelegateWithOneParam callback1;
-    GameObject obj;
+    DelegateWithTwoParam callback2;
+    GameObject obj1;
+    GameObject obj2;
 
     //timer structure
     public Timer(float duration, Delegate _callback, bool repeat)
@@ -32,7 +35,18 @@ public class Timer
         this.currentTime = duration;
         this.callback1 = _callback1;
         this.repeat = repeat;
-        this.obj = obj;
+        this.obj1 = obj;
+        this.callback = null;
+    }
+
+    public Timer(float duration,  DelegateWithTwoParam _callback2, GameObject obj1, GameObject obj2, bool repeat)
+    {
+        this.duration = duration;
+        this.currentTime = duration;
+        this.callback2 = _callback2;
+        this.repeat = repeat;
+        this.obj1 = obj1;
+        this.obj2 = obj2;
         this.callback = null;
     }
 
@@ -48,9 +62,13 @@ public class Timer
                 {
                     callback();
                 }
+                else if (this.callback1 != null)
+                {
+                    callback1(obj1);
+                }
                 else
                 {
-                    callback1(obj);
+                    callback2(obj1, obj2);
                 }
 
                 if (repeat)
