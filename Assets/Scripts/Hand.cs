@@ -164,7 +164,11 @@ public class Hand : MonoBehaviour
 
         if (col.GetComponent<Prince>())
         {
+            if (transformVelocity.magnitude > 5f)
+            {
+                col.GetComponent<Prince>().ReceiveDamage(20f, true);
 
+            }
         }
 
         //Debug.Log("You have collided with " + col.name + " and activated OnTriggerStay");
@@ -187,7 +191,7 @@ public class Hand : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        if (col.CompareTag("Princess"))
+        if (col.CompareTag("Prince"))
         {
 			if (!isEnemyPicked) {
 				if (device.GetTouch (SteamVR_Controller.ButtonMask.Trigger)) {

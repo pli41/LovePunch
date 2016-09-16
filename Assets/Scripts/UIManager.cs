@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour {
             SetGameObjects(inGameComponents, true);
             SetGameObjects(betweenLevelsComponents, false);
             SetGameObjects(afterGameComponents, false);
+
+
         }
         else if (GameManager.state == GameManager.gameState.BetweenLevels)
         {

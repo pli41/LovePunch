@@ -121,7 +121,7 @@ public class NormalMinion : Enemy {
 
     public override void DealDamage(GameObject victim)
     {
-        victim.GetComponent<Prince>().ReceiveDamage(GetDamage());
+        victim.GetComponent<Prince>().ReceiveDamage(GetDamage(), true);
     }
 
 

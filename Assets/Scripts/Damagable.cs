@@ -3,5 +3,5 @@ using System.Collections;
 
 public interface Damagable{
 
-    void ReceiveDamage(float damage);
+    void ReceiveDamage(float damage, bool friendly);
 }

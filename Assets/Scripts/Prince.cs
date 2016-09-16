@@ -13,9 +13,9 @@ public class Princess : MonoBehaviour, Damagable {
     public Hand[] hands;
 
     [SerializeField]
-    public AudioClip[] hurtSounds;
+    AudioClip[] hurtSounds;
     [SerializeField]
-    public AudioClip[] hurtByPlayerSounds;
+    AudioClip[] hurtByPlayerSounds;
 
     // Use this for initialization
     void Start () {
@@ -28,7 +28,7 @@ public class Princess : MonoBehaviour, Damagable {
         CheckDeath();
 	}
 
-    public void ReceiveDamage( float damage)
+    public void ReceiveDamage( float damage, bool friendly)
     {
         this.health -= damage;
 
@@ -43,7 +43,15 @@ public class Princess : MonoBehaviour, Damagable {
         {
             hand.onFire = false;
         }
-        AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtSounds);
+        if (friendly)
+        {
+            AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtSounds);
+        }
+        else
+        {
+            AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtByPlayerSounds);
+        }
+        
     }
 
     public bool CheckDeath()

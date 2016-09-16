@@ -5,12 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Princess
+  - Prince
   - BGM
   - EnemyHealthBars
   - Canvas
   - Ground
   - BloodStain
+  - GameManager
   layers:
   - Default
   - TransparentFX

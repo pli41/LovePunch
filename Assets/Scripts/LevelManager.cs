@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour {
                 Timer delayTimer = new Timer(sameSpawnerDelayTime, CreateMinion, spawners[spawnerNum].gameObject, minion, false);
             }
         }
-        if (++currentWave <= currentLevel.waves.Length)
+        if (++currentWave >= currentLevel.waves.Length)
         {
             SetupNextLevel();
         }
