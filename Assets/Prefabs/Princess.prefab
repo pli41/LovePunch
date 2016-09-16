@@ -37,7 +37,8 @@ GameObject:
   - 95: {fileID: 95000011233784028}
   - 54: {fileID: 54000013336328540}
   - 65: {fileID: 65000011757022486}
-  - 114: {fileID: 114000012485644224}
+  - 82: {fileID: 82000011455185476}
+  - 114: {fileID: 114000011186561826}
   m_Layer: 0
   m_Name: Princess
   m_TagString: Princess
@@ -187,7 +188,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011034511068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.329, y: 0.28, z: -0.071}
+  m_LocalPosition: {x: -0.189, y: 0.28, z: -1.449}
   m_LocalScale: {x: 27, y: 27, z: 27}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -332,6 +333,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.04, y: 0.05, z: 0.04}
   m_Center: {x: 0, y: 0.022, z: 0}
+--- !u!82 &82000011455185476
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011034511068}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.531
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95000011233784028
 Animator:
   serializedVersion: 3
@@ -349,7 +424,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000012485644224
+--- !u!114 &114000011186561826
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -361,11 +436,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  _gameOverEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Player+GameOverEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+  hands:
+  - {fileID: 0}
+  - {fileID: 0}
+  hurtSounds:
+  - {fileID: 8300000, guid: 6b3f096f918acd545814ae7c4b3ca5b9, type: 3}
+  - {fileID: 8300000, guid: 888572a745747ff4eb18d17be9910911, type: 3}
+  hurtByPlayerSounds:
+  - {fileID: 8300000, guid: 9c1e72d431e37c8458b2d2d9055d0e17, type: 3}
+  - {fileID: 8300000, guid: d51cb3bbeb85bae4492061b9b1f55339, type: 3}
+  - {fileID: 8300000, guid: a5c6e84eeba6b314f9d308782fbb8916, type: 3}
+  - {fileID: 8300000, guid: d31afccfdb7d3634484fd619cf3d1d52, type: 3}
 --- !u!137 &137000010301724964
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

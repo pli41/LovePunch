@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour, Damagable {
+public class Enemy : MonoBehaviour {
 
     [SerializeField]
     string name;

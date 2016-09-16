@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityStandardAssets.ImageEffects;
 
-public class Princess : MonoBehaviour, Damagable {
+public class Prince : MonoBehaviour {
 
     [SerializeField]
     private float health;

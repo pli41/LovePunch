@@ -31,6 +31,8 @@ public class Hand : MonoBehaviour
 
 	private bool isEnemyPicked = false;
 
+    private bool isSpearPicked = false;
+
     void Awake()
     {
         //rigid = GetComponent<Rigidbody>();
@@ -144,8 +146,13 @@ public class Hand : MonoBehaviour
 		return isEnemyPicked;
 	}
 
+    public bool GetSpearPicked()
+    {
+        return isSpearPicked;
+    }
 
-    
+
+
     void OnTriggerEnter (Collider col)
     {
         /*
@@ -193,7 +200,7 @@ public class Hand : MonoBehaviour
     {
         if (col.CompareTag("Prince"))
         {
-			if (!isEnemyPicked) {
+			if (!isEnemyPicked && !isSpearPicked) {
 				if (device.GetTouch (SteamVR_Controller.ButtonMask.Trigger)) {
 					Vector3 movePrincessToPoint = transform.position;
 					movePrincessToPoint.y = col.gameObject.transform.position.y;
@@ -205,7 +212,7 @@ public class Hand : MonoBehaviour
         if (col.CompareTag("Enemy"))
         {
             String EnemyName = col.GetComponent<Enemy>().GetName();
-            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && EnemyName.CompareTo("Bulker")!= 0)
+            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && EnemyName.CompareTo("Bulker")!= 0 && !isSpearPicked)
             {
 				isEnemyPicked = true;
                 col.attachedRigidbody.isKinematic = true;
@@ -228,6 +235,25 @@ public class Hand : MonoBehaviour
             }
 
         }
+
+
+        /* Pickup and Throw Spear */
+        if (col.CompareTag("Spear"))
+        {
+            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Spear>().checkDetached() && !isEnemyPicked)
+            {
+                col.attachedRigidbody.isKinematic = true;
+                col.gameObject.transform.SetParent(gameObject.transform);
+            }
+            if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                col.attachedRigidbody.mass = 1;
+                col.gameObject.transform.SetParent(null);
+                col.attachedRigidbody.isKinematic = false;
+                tossObject(col.attachedRigidbody);
+            }
+        }
+        /* Pickup and Throw Spear END*/
     }
 
 
@@ -236,6 +262,7 @@ public class Hand : MonoBehaviour
         GameObject hit = col.gameObject;
         if (hit.CompareTag("Enemy"))
         {
+            String EnemyName = hit.GetComponent<Enemy>().GetName();
             if (col.contacts.Length > 0)
             {
                 if (lastPunchedMinionId != 0 && lastPunchedMinionId == hit.GetInstanceID())
@@ -245,6 +272,22 @@ public class Hand : MonoBehaviour
                 }
 
                 lastPunchedMinionId = hit.GetInstanceID();
+
+                if (EnemyName.CompareTo("Spearer") == 0)
+                {
+                    Transform spearChild = hit.transform.Find("Spear");
+
+                    //If spear exists, drop spear, attach a rigid body and 
+                    if (spearChild)
+                    {
+                        spearChild.SetParent(null);
+                        spearChild.gameObject.GetComponent<Spear>().DetachFromEnemy();
+                        Rigidbody spearRigidBody = spearChild.gameObject.AddComponent<Rigidbody>();
+                        spearRigidBody.mass = 100;
+                        spearRigidBody.isKinematic = false;
+                    }
+
+                }
 
                 Punch(hit.GetComponent<Rigidbody>(), col.contacts[0].point);
             }
