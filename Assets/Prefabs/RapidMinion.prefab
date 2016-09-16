@@ -840,6 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8491ec606659349913a9b244841c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Rusher
   damage: 10
   speed: 1.8
   health: 50
@@ -965,10 +966,10 @@ ParticleSystem:
     minMaxState: 0
   speed: 1
   randomSeed: 1111302376
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
-  moveWithTransform: 1
+  moveWithTransform: 0
   scalingMode: 0
   InitialModule:
     serializedVersion: 2

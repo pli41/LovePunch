@@ -162,7 +162,7 @@ public class Hand : MonoBehaviour
         }
         */
 
-        if (col.CompareTag("Prince"))
+        if (col.GetComponent<Prince>())
         {
 
         }
@@ -200,13 +200,12 @@ public class Hand : MonoBehaviour
 
         if (col.CompareTag("Enemy"))
         {
-            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
+            String EnemyName = col.GetComponent<Enemy>().GetName();
+            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && EnemyName.CompareTo("Bulker")!= 0)
             {
 				isEnemyPicked = true;
-                Debug.Log("Pickedup");
                 col.attachedRigidbody.isKinematic = true;
                 col.gameObject.transform.SetParent(gameObject.transform);
-
                 col.gameObject.GetComponent<NormalMinion>().Disable();
             }
 
@@ -255,7 +254,7 @@ public class Hand : MonoBehaviour
 
     void OnCollisionStay(Collision col)
     {
-        Debug.Log("Staying");
+        
     }
 
     void Punch(Rigidbody rigidBody, Vector3 point)

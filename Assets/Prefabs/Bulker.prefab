@@ -829,12 +829,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8491ec606659349913a9b244841c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Bulker
   damage: 20
   speed: 0.8
   health: 400
   healthBarObj: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183,
     type: 2}
-  disabledTime: 2
+  disabledTime: 0
   UIOffset: {x: 0, y: 2, z: 0}
   bloodAnimation: {fileID: 1000010829342728}
   bloodStain: {fileID: 1000013614354700}

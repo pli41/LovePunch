@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour, Damagable {
 
     [SerializeField]
+    string name;
+    [SerializeField]
     float damage;
     [SerializeField]
     float speed;
@@ -12,13 +14,15 @@ public class Enemy : MonoBehaviour, Damagable {
     float health;
     bool isDead;
 
+
     private Rigidbody[] _childrenRigidBodies;
 
     [SerializeField]
     GameObject healthBarObj;
     GameObject healthBarsObj;
+    
 
-	bool disabled;
+    bool disabled;
 	Timer disableTimer;
 	[SerializeField]
 	float disabledTime;
@@ -54,30 +58,37 @@ public class Enemy : MonoBehaviour, Damagable {
 	// Update is called once per frame
 	void Update () {
 		Act ();
-		UpdateUI ();
+        UpdateUI();		
 		CalculateVelocity ();
     }
 
     public void SetupUI()
     {
+        if(healthBarObj)
+            initialScale = healthBarObj.transform.localScale;
+        healthBarsObj = GameObject.FindGameObjectWithTag("EnemyHealthBars");
+        healthBarObj = (GameObject)Instantiate(healthBarObj, healthBarsObj.GetComponent<Transform>());
         player = GameObject.FindGameObjectWithTag("Player");
 		healthBarObj.transform.position = transform.position + UIOffset;
-		initialScale = healthBarObj.transform.localScale;
-        healthBarsObj = GameObject.FindGameObjectWithTag("EnemyHealthBars");
-        healthBarObj = (GameObject)GameObject.Instantiate(healthBarObj, healthBarsObj.GetComponent<Transform>());
+		     
+        healthBarObj.GetComponent<Slider>().maxValue = health;
     }
 
     public void UpdateUI()
     {
-        healthBarObj.GetComponent<Slider>().value = health;
-        healthBarObj.transform.position = transform.position + UIOffset;
-        healthBarObj.transform.LookAt(new Vector3(player.transform.position.x, healthBarObj.transform.position.y, player.transform.position.z));
-        healthBarObj.GetComponent<RectTransform>().localScale = initialScale;
+        if (healthBarObj)
+        {
+            healthBarObj.GetComponent<Slider>().value = health;
+            healthBarObj.transform.position = transform.position + UIOffset;
+            healthBarObj.transform.LookAt(new Vector3(player.transform.position.x, healthBarObj.transform.position.y, player.transform.position.z));
+            healthBarObj.GetComponent<RectTransform>().localScale = initialScale;
+        }
+        
     }
 
 	public void Disable()
 	{
-		Debug.Log ("Disabled");
+		//Debug.Log ("Disabled");
 		disableTimer = new Timer(disabledTime, Recover, false);
 		disabled = true;
 	}
@@ -140,7 +151,7 @@ public class Enemy : MonoBehaviour, Damagable {
     {
         if (col.gameObject.CompareTag("Ground") && isDead)
         {
-            bloodStain.SetActive(true);
+            //bloodStain.SetActive(true);
         }
     }
 
@@ -218,5 +229,10 @@ public class Enemy : MonoBehaviour, Damagable {
     public float GetDamage()
     {
         return this.damage;
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 }

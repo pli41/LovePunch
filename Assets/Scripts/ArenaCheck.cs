@@ -17,14 +17,14 @@ public class ArenaCheck : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
 	{
-		Debug.Log ("123");
+		//Debug.Log ("123");
 		
         if (col.tag == "Enemy")
         {
-			Debug.Log ("enemey in the sky");
+			//Debug.Log ("enemey in the sky");
             if (hands[0] && hands[1])
             {
-				Debug.Log ("onfire!");
+				//Debug.Log ("onfire!");
                 hands[0].onFire = true;
                 hands[1].onFire = true;
             }

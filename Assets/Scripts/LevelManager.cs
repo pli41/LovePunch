@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour {
             1,
             new int[]{0, 1, 2},
             100,
-            new float[] { 6, 12},
+            new float[] { 4, 10},
             new float[] { 0.5f, 20f},
             new float[] { 0.5f, 0.3f, 0.2f}
         );
@@ -102,6 +102,7 @@ public class LevelManager : MonoBehaviour {
         float randomNum = Random.Range(0f, 1f);
         int minionNum = PickMinion(randomNum);
 
+        Debug.Log("Minion Num" + minionNum);
         int spawnerNum = Random.Range(0, spawners.Length-1);
         spawners[spawnerNum].Spawn(gameManager.minions[minionNum]);
         creating = false;
