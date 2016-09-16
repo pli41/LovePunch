@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		BGM = GameObject.FindGameObjectWithTag ("BGM");
         BGMaudioSources = BGM.GetComponents<AudioSource>();
-        state = gameState.BeforeGame;
+        state = gameState.InGame;
         themesong = assignThemesong;
         loseClip = assignLoseSong;
 	}

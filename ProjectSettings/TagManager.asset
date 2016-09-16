@@ -9,6 +9,7 @@ TagManager:
   - BGM
   - EnemyHealthBars
   - Canvas
+  - Ground
   layers:
   - Default
   - TransparentFX

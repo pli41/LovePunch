@@ -18,11 +18,11 @@ public class LevelManager : MonoBehaviour {
         
         levels[0] = new Level(
             1,
-            new int[]{1},
+            new int[]{0, 1, 2},
             100,
-            new float[] { 0, 8},
-            new float[] { 0.5f, 15f},
-            new int[] { 1}
+            new float[] { 6, 12},
+            new float[] { 0.5f, 20f},
+            new float[] { 0.5f, 0.3f, 0.2f}
         );
 
         levels[1] = new Level(
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour {
             10,
             new float[] { 10, 15 },
             new float[] { 1, 10 },
-            new int[] { 1 }
+            new float[] { 1 }
         );
 
         levels[2] = new Level(
@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour {
             10,
             new float[] { 10, 15 },
             new float[] { 1, 10 },
-            new int[] { 1 }
+            new float[] { 1 }
         );
 
         levels[3] = new Level(
@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour {
             10,
             new float[] { 10, 15 },
             new float[] { 1, 10 },
-            new int[] { 1 }
+            new float[] { 1 }
         );
 
         levels[4] = new Level(
@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour {
             10,
             new float[] { 10, 15 },
             new float[] { 1, 10 },
-            new int[] { 1 }
+            new float[] { 1 }
         );
         currentLevel = levels[0];
         generateTimeMin = currentLevel.minionGenerationInterval[0];
@@ -99,9 +99,29 @@ public class LevelManager : MonoBehaviour {
 
     void SpawnMinion()
     {
+        float randomNum = Random.Range(0f, 1f);
+        int minionNum = PickMinion(randomNum);
+
         int spawnerNum = Random.Range(0, spawners.Length-1);
-        spawners[spawnerNum].Spawn(gameManager.minions[0]);
+        spawners[spawnerNum].Spawn(gameManager.minions[minionNum]);
         creating = false;
+    }
+
+    int PickMinion(float randomNum)
+    {
+        float probCheck = 0f;
+        for (int i = 0; i < currentLevel.minions.Length; i++)
+        {
+            if (randomNum >= probCheck)
+            {
+                probCheck += currentLevel.minionPossibilities[i];
+                if (randomNum <= probCheck)
+                {
+                    return currentLevel.minions[i];
+                }
+            }
+        }
+        return 0;
     }
 
     void NextLevel()
@@ -116,9 +136,9 @@ public class LevelManager : MonoBehaviour {
         public int minionNum;
         public float[] minionGenerationInterval;
         public float[] minionGenerationIncrease; //0 is increase step, 1 is increase interval
-        public int[] minionPossibilities;
+        public float[] minionPossibilities;
 
-        public Level(int levelNum, int[] minions, int minionNum, float[] minionGenerationInterval, float[] minionGenerationIncrease, int[] minionPossibilities)
+        public Level(int levelNum, int[] minions, int minionNum, float[] minionGenerationInterval, float[] minionGenerationIncrease, float[] minionPossibilities)
         {
             this.levelNum = levelNum;
             this.minions = minions;

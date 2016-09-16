@@ -31,9 +31,14 @@ public class Enemy : MonoBehaviour, Damagable {
 
     [SerializeField]
     GameObject bloodAnimation;
+    [SerializeField]
+    GameObject bloodStain;
 
 	[SerializeField]
 	float throwFactor;
+
+    [SerializeField]
+    float afterMass;
 
 	Vector3 transformVelocity;
 	Vector3 oldPos;
@@ -105,25 +110,38 @@ public class Enemy : MonoBehaviour, Damagable {
         CheckDeath();
     }
 
-    public virtual void Act() {}
+    public virtual void Act() {
+        if (isDead)
+        {
+            Death();
+        }
+    }
 
     public bool CheckDeath()
     {
         if (GetHealth() <= 0)
         {
-            Death();
+            isDead = true;
         }
         return isDead;
     }
 
     public void Death()
     {
-        isDead = true;
         //EnableRagdoll();
         //DisableColliders();
         bloodAnimation.SetActive(true);
-		Destroy (healthBarObj, 10f);
+		Destroy (healthBarObj);
+        
         Destroy(gameObject, 10f);
+    }
+
+    protected virtual void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Ground") && isDead)
+        {
+            bloodStain.SetActive(true);
+        }
     }
 
 	public void DisableColliders(){
@@ -165,6 +183,11 @@ public class Enemy : MonoBehaviour, Damagable {
     public virtual void DealDamage(GameObject victim)
     {
 
+    }
+
+    public void SetAfterMass()
+    {
+        GetComponent<Rigidbody>().mass = afterMass;
     }
 
     public float GetHealth()

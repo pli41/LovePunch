@@ -14,6 +14,8 @@ public class Hand : MonoBehaviour
     SteamVR_TrackedObject trackedObj;
     SteamVR_Controller.Device device;
 
+    int lastPunchedMinionId;
+
     Rigidbody rigid;
     Vector3 transformVelocity;
     Vector3 oldPos;
@@ -36,6 +38,7 @@ public class Hand : MonoBehaviour
         oldPos = transform.position;
         audioSource = GetComponent<AudioSource>();
         SetControllerNum();
+        lastPunchedMinionId = 0;
         fireMulti = onFireMultiNum;
 
         /*Component[] c = GameObject.FindWithTag ("Enemy").GetComponents<Component> ();
@@ -232,6 +235,14 @@ public class Hand : MonoBehaviour
         {
             if (col.contacts.Length > 0)
             {
+                if (lastPunchedMinionId != 0 && lastPunchedMinionId == hit.GetInstanceID())
+                {
+                    Debug.Log("SAME MINION HIT");
+                    transformVelocity *= powerPunchMul;
+                }
+
+                lastPunchedMinionId = hit.GetInstanceID();
+
                 Punch(hit.GetComponent<Rigidbody>(), col.contacts[0].point);
             }
         }
@@ -261,6 +272,7 @@ public class Hand : MonoBehaviour
         transformVelocity *= fireMulti;
         lastPunchedNum = ControllerNum;
 
+        rigidBody.gameObject.GetComponent<Enemy>().SetAfterMass();
         rigidBody.AddForceAtPosition(transformVelocity, point, ForceMode.Impulse);
         AudioPlay.PlayRandomSound(audioSource, punchSounds);
         GameObject obj = rigidBody.gameObject;

@@ -50,6 +50,7 @@ public class NormalMinion : Enemy {
 
     public override void Act()
     {
+        base.Act();
         ComeTowards();
         Attack();
     }
@@ -86,10 +87,9 @@ public class NormalMinion : Enemy {
     {
         if ( col.gameObject.CompareTag("Princess"))
         {
-            Debug.Log("Inrange");
             inRange = true;
             attackTimer = new Timer(2f, DealDamage, col.gameObject, true);
-        }     
+        }
     }
 
     //Out of Range
@@ -97,17 +97,16 @@ public class NormalMinion : Enemy {
     {
         if (col.gameObject.CompareTag("Princess"))
         {
-            Debug.Log("OutOfRange");
             inRange = false;
         }
     }
 
-	void OnCollisionEnter(Collision col)
+	protected override void OnCollisionEnter(Collision col)
 	{
+        base.OnCollisionEnter(col);
 		if (col.gameObject.CompareTag ("Enemy")) 
 		{
 			if (CheckDisabled()) {
-				Debug.Log ("Enemy hits enemy");
 				Enemy enemy = col.gameObject.GetComponent<Enemy> ();
 				if (!enemy.CheckDisabled ()){
 					enemy.ReceiveDamage (GetCurrentVelocity()*GetThrowFactor());
@@ -115,12 +114,14 @@ public class NormalMinion : Enemy {
 				}
 			}
 		}
+
+        //Normal Minions Dead hit ground
+
 	}
 
     public override void DealDamage(GameObject victim)
     {
-        Debug.Log("Deal Damage");
-        victim.GetComponent<Princess>().ReceiveDamage(GetDamage());
+        victim.GetComponent<Prince>().ReceiveDamage(GetDamage());
     }
 
 
