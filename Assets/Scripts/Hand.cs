@@ -31,7 +31,7 @@ public class Hand : MonoBehaviour
     AudioClip[] playerPunchSounds_heavy;
     public bool onFire;
     public GameObject fireAnimation;
-    public TrailRenderer trail;
+    TrailRenderer trail;
     public float onFireMultiNum;
     float fireMulti;
 
@@ -41,7 +41,7 @@ public class Hand : MonoBehaviour
 
     void Awake()
     {
-
+        trail = GetComponent<TrailRenderer>();
         //rigid = GetComponent<Rigidbody>();
         playerVoiceSource = transform.parent.gameObject.GetComponent<AudioSource>();
         trackedObj = GetComponent<SteamVR_TrackedObject>();
@@ -345,7 +345,7 @@ public class Hand : MonoBehaviour
         {
             if (currrentEnemy.killCheck(damage))
             {
-                rigidBody.gameObject.GetComponent<Enemy>().SetAfterMass();
+                rigidBody.gameObject.GetComponent<Enemy>().SetUpAfterDeath();
                 rigidBody.AddForceAtPosition(transformVelocity, point, ForceMode.Impulse);
             }
             obj.GetComponent<Enemy>().ReceiveDamage(damage);

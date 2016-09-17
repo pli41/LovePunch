@@ -208,8 +208,9 @@ public class Enemy : MonoBehaviour {
 
     }
 
-    public void SetAfterMass()
+    public void SetUpAfterDeath()
     {
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         GetComponent<Rigidbody>().mass = afterMass;
     }
 
