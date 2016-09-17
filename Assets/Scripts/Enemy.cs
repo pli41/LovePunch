@@ -141,6 +141,11 @@ public class Enemy : MonoBehaviour {
         return isDead;
     }
 
+    public bool killCheck(float comingDamage)
+    {
+        return (health - comingDamage) <= 0;
+    }
+
     public void Death()
     {
         //EnableRagdoll();

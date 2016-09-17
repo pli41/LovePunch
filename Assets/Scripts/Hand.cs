@@ -21,11 +21,17 @@ public class Hand : MonoBehaviour
     Vector3 oldPos;
 
     AudioSource audioSource;
+    AudioSource playerVoiceSource;
     [SerializeField]
     AudioClip[] punchSounds;
 
+    [SerializeField]
+    AudioClip[] playerPunchSounds_light;
+    [SerializeField]
+    AudioClip[] playerPunchSounds_heavy;
     public bool onFire;
-    public GameObject[] fireAnimations;
+    public GameObject fireAnimation;
+    public TrailRenderer trail;
     public float onFireMultiNum;
     float fireMulti;
 
@@ -35,7 +41,9 @@ public class Hand : MonoBehaviour
 
     void Awake()
     {
+
         //rigid = GetComponent<Rigidbody>();
+        playerVoiceSource = transform.parent.gameObject.GetComponent<AudioSource>();
         trackedObj = GetComponent<SteamVR_TrackedObject>();
         oldPos = transform.position;
         audioSource = GetComponent<AudioSource>();
@@ -68,18 +76,14 @@ public class Hand : MonoBehaviour
     {
         if (onFire)
         {
-            foreach (GameObject fireAnimation in fireAnimations)
-            {
-                fireAnimation.SetActive(true);
-            }
+            trail.enabled = true;
+            fireAnimation.SetActive(true);
             fireMulti = onFireMultiNum;
         }
         else
         {
-            foreach (GameObject fireAnimation in fireAnimations)
-            {
-                fireAnimation.SetActive(false);
-            }
+            trail.enabled = false;
+            fireAnimation.SetActive(false);
             fireMulti = 1f;
         }
     }
@@ -293,10 +297,7 @@ public class Hand : MonoBehaviour
             }
         }
 
-        if (GameManager.state == GameManager.gameState.BeforeGame)
-        {
-            GameManager.StartGame();
-        }
+        
     }
 
     void OnCollisionStay(Collision col)
@@ -306,7 +307,7 @@ public class Hand : MonoBehaviour
 
     void Punch(Rigidbody rigidBody, Vector3 point)
     {
-        if (ControllerNum == lastPunchedNum)
+        if (ControllerNum != lastPunchedNum)
         {
             transformVelocity *= powerPunchMul;
         }
@@ -315,16 +316,44 @@ public class Hand : MonoBehaviour
 
         //SteamVR_Controller.Input (0).TriggerHapticPulse (3800);
 
+        if (onFire)
+        {
+            if (!playerVoiceSource.isPlaying)
+            {
+                AudioPlay.PlayRandomSound(playerVoiceSource, playerPunchSounds_heavy);
+            }
+            
+        }
+        else
+        {
+            if (!playerVoiceSource.isPlaying)
+            {
+                AudioPlay.PlayRandomSound(playerVoiceSource, playerPunchSounds_light);
+            }
+        }
+
         transformVelocity *= fireMulti;
         lastPunchedNum = ControllerNum;
 
-        rigidBody.gameObject.GetComponent<Enemy>().SetAfterMass();
-        rigidBody.AddForceAtPosition(transformVelocity, point, ForceMode.Impulse);
         AudioPlay.PlayRandomSound(audioSource, punchSounds);
+        
         GameObject obj = rigidBody.gameObject;
+        Enemy currrentEnemy = obj.GetComponent<Enemy>();
+        float damage = transformVelocity.magnitude * 5f;
+
         if (obj.CompareTag("Enemy"))
         {
-            obj.GetComponent<Enemy>().ReceiveDamage(transformVelocity.magnitude * 10f);
+            if (currrentEnemy.killCheck(damage))
+            {
+                rigidBody.gameObject.GetComponent<Enemy>().SetAfterMass();
+                rigidBody.AddForceAtPosition(transformVelocity, point, ForceMode.Impulse);
+            }
+            obj.GetComponent<Enemy>().ReceiveDamage(damage);
+        }
+
+        if (GameManager.state == GameManager.gameState.BeforeGame)
+        {
+            GameManager.StartGame();
         }
     }
 
