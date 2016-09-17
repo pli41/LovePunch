@@ -32,7 +32,7 @@ public class Prince : MonoBehaviour {
     {
         this.health -= damage;
 
-        ColorCorrectionCurves worldColor = GameObject.FindWithTag("Player").GetComponent<ColorCorrectionCurves>();
+        //ColorCorrectionCurves worldColor = GameObject.FindWithTag("Player").GetComponent<ColorCorrectionCurves>();
 
 		//Debug.Log (cc.saturation);
 

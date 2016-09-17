@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour {
 
     [SerializeField]
-    string name;
+    new string name;
     [SerializeField]
     float damage;
     [SerializeField]

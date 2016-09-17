@@ -35,9 +35,7 @@ public class Hand : MonoBehaviour
     public float onFireMultiNum;
     float fireMulti;
 
-	private bool isEnemyPicked = false;
-
-    private bool isSpearPicked = false;
+    bool isSomethingPicked = false;
 
     void Awake()
     {
@@ -146,14 +144,6 @@ public class Hand : MonoBehaviour
 		oldPos = transform.position;
 	}
 
-	public bool GetEnemyPicked(){
-		return isEnemyPicked;
-	}
-
-    public bool GetSpearPicked()
-    {
-        return isSpearPicked;
-    }
 
 
 
@@ -204,7 +194,7 @@ public class Hand : MonoBehaviour
     {
         if (col.CompareTag("Prince"))
         {
-			if (!isEnemyPicked && !isSpearPicked) {
+			if (!isSomethingPicked) {
 				if (device.GetTouch (SteamVR_Controller.ButtonMask.Trigger)) {
 					Vector3 movePrincessToPoint = transform.position;
 					movePrincessToPoint.y = col.gameObject.transform.position.y;
@@ -216,9 +206,9 @@ public class Hand : MonoBehaviour
         if (col.CompareTag("Enemy"))
         {
             String EnemyName = col.GetComponent<Enemy>().GetName();
-            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && EnemyName.CompareTo("Bulker")!= 0 && !isSpearPicked)
+            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && EnemyName.CompareTo("Bulker")!= 0 && !isSomethingPicked)
             {
-				isEnemyPicked = true;
+                isSomethingPicked = true;
                 col.attachedRigidbody.isKinematic = true;
                 col.gameObject.transform.SetParent(gameObject.transform);
                 col.gameObject.GetComponent<NormalMinion>().Disable();
@@ -229,13 +219,10 @@ public class Hand : MonoBehaviour
                 //Debug.Log("Dropped");
                 col.gameObject.transform.SetParent(null);
                 col.attachedRigidbody.isKinematic = false;
-
-                col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude * 5f);
+                col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude);
                 //.Log(transformVelocity.magnitude);
-
                 tossObject(col.attachedRigidbody);
-
-				isEnemyPicked = false;
+                isSomethingPicked = false;
             }
 
         }
@@ -244,8 +231,30 @@ public class Hand : MonoBehaviour
         /* Pickup and Throw Spear */
         if (col.CompareTag("Spear"))
         {
-			if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Spear>().checkDetached() && !isEnemyPicked)
+			if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Spear>().checkDetached() && !isSomethingPicked)
             {
+                isSomethingPicked = true;
+                col.attachedRigidbody.isKinematic = true;
+                col.gameObject.transform.SetParent(gameObject.transform);
+            }
+            if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                isSomethingPicked = false;
+                col.attachedRigidbody.mass = 1;
+                col.gameObject.transform.SetParent(null);
+                col.attachedRigidbody.isKinematic = false;
+                tossObject(col.attachedRigidbody);
+            }
+        }
+        /* Pickup and Throw Spear END*/
+
+        /*BOMB CHANGES */
+        /* Pickup and Throw Bomb*/
+        if (col.CompareTag("Bomb"))
+        {
+            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Bomb>().CheckDetached() && !isSomethingPicked)
+            {
+                isSomethingPicked = true;
                 col.attachedRigidbody.isKinematic = true;
                 col.gameObject.transform.SetParent(gameObject.transform);
             }
@@ -254,10 +263,12 @@ public class Hand : MonoBehaviour
                 col.attachedRigidbody.mass = 1;
                 col.gameObject.transform.SetParent(null);
                 col.attachedRigidbody.isKinematic = false;
-                tossObject(col.attachedRigidbody);
+                tossBomb(col.attachedRigidbody);
+                isSomethingPicked = false;
             }
         }
-        /* Pickup and Throw Spear END*/
+        /* Pickup and Throw Bomb END*/
+        /*BOMB FUNCTION */
     }
 
 
@@ -322,7 +333,6 @@ public class Hand : MonoBehaviour
             {
                 AudioPlay.PlayRandomSound(playerVoiceSource, playerPunchSounds_heavy);
             }
-            
         }
         else
         {
@@ -357,6 +367,21 @@ public class Hand : MonoBehaviour
         }
     }
 
+    /*BOMB CHANGES */
+    void tossBomb(Rigidbody rigidBody)
+    {
+        Transform origin = trackedObj.origin ? trackedObj.origin : trackedObj.transform.parent;
+        if (origin != null)
+        {
+            rigidBody.velocity = origin.TransformVector(device.velocity);
+            rigidBody.angularVelocity = origin.TransformVector(device.angularVelocity);
+        }
+        else
+        {
+            rigidBody.velocity = device.velocity;
+            rigidBody.angularVelocity = device.angularVelocity;
+        }
+    }
 
     void tossObject(Rigidbody rigidBody)
     {
@@ -373,4 +398,8 @@ public class Hand : MonoBehaviour
         }
     }
 
+    public SteamVR_Controller.Device GetDevice()
+    {
+        return device;
+    }
 }

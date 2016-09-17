@@ -24,7 +24,7 @@ Material:
     m_Floats:
     - first:
         name: _InvFade
-      second: 1.2669643
+      second: 3
     m_Colors:
     - first:
         name: _Color

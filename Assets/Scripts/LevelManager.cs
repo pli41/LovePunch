@@ -16,7 +16,6 @@ public class LevelManager : MonoBehaviour {
 
     int[] pickedSpawners;
 
-
     // Use this for initialization
     void Start () {
 
@@ -88,6 +87,15 @@ public class LevelManager : MonoBehaviour {
             waveTimer.RunTimer();
         }
     }
+    /*
+    void RunMinionTimers()
+    {
+        foreach (Timer timer in minionTimers)
+        {
+            timer.RunTimer();
+        }
+    }
+    */
 
     void CreateWave()
     {
@@ -103,6 +111,7 @@ public class LevelManager : MonoBehaviour {
         foreach (int spawnerNum in pickedSpawners)
         {
             GameObject minion = gameManager.minions[currentLevel.waves[currentWave][minionIndex]];
+            
 
             CreateMinion(spawners[spawnerNum].gameObject, minion);
 			//Debug.Log ("Minion " + minion.name +"spawned at" + Time.time);

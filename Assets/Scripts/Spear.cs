@@ -26,15 +26,21 @@ public class Spear : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (checkDetached())
+        if (col.gameObject.CompareTag("Enemy"))
         {
-            // if it hits enemy and is detached (meaning it is thrown), deal damage to enemy
-            if (col.gameObject.CompareTag("Enemy"))
+            if (checkDetached())
             {
+                // if it hits enemy and is detached (meaning it is thrown), deal damage to enemy
                 col.gameObject.GetComponent<Enemy>().ReceiveDamage(damage);
-                Destroy(gameObject, 5f);
+                
             }
+            else
+            {
+                col.gameObject.GetComponent<Enemy>().ReceiveDamage(damage/2);
+            }
+            Destroy(this);
         }
+        
     }
 
     // Update is called once per frame
