@@ -97,12 +97,12 @@ public class Hand : MonoBehaviour
 */
         if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            Debug.Log("You activated TouchDown on the Trigger");
+            //Debug.Log("You activated TouchDown on the Trigger");
         }
 
         if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
         {
-            Debug.Log("You activated TouchUp on the Trigger");
+            //Debug.Log("You activated TouchUp on the Trigger");
         }
         /*
         if (device.GetPress(SteamVR_Controller.ButtonMask.Trigger))
@@ -267,7 +267,7 @@ public class Hand : MonoBehaviour
             {
                 if (lastPunchedMinionId != 0 && lastPunchedMinionId == hit.GetInstanceID())
                 {
-                    Debug.Log("SAME MINION HIT");
+                    //Debug.Log("SAME MINION HIT");
                     transformVelocity *= powerPunchMul;
                 }
 
@@ -324,7 +324,7 @@ public class Hand : MonoBehaviour
         GameObject obj = rigidBody.gameObject;
         if (obj.CompareTag("Enemy"))
         {
-            obj.GetComponent<Enemy>().ReceiveDamage(transformVelocity.magnitude * 5f);
+            obj.GetComponent<Enemy>().ReceiveDamage(transformVelocity.magnitude * 10f);
         }
     }
 

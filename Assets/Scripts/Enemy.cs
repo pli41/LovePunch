@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
     float health;
     bool isDead;
 
+	bool untertaken;
 
     private Rigidbody[] _childrenRigidBodies;
 
@@ -120,7 +121,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public virtual void Act() {
-        if (isDead)
+		if (isDead && !untertaken)
         {
             Death();
         }
@@ -133,7 +134,7 @@ public class Enemy : MonoBehaviour {
 
     public bool CheckDeath()
     {
-        if (GetHealth() <= 0)
+		if (health <= 0)
         {
             isDead = true;
         }
@@ -144,10 +145,13 @@ public class Enemy : MonoBehaviour {
     {
         //EnableRagdoll();
         //DisableColliders();
+		untertaken = true;
         bloodAnimation.SetActive(true);
 		Destroy (healthBarObj);
         Destroy(gameObject, 10f);
+		Debug.Log ("Before removing Minions left: " + GameManager.existingMinions.Count);
         GameManager.existingMinions.Remove(gameObject);
+		Debug.Log ("After removing Minions left: " + GameManager.existingMinions.Count);
     }
 
     protected virtual void OnCollisionEnter(Collision col)

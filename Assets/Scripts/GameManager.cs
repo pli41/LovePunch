@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		BGM = GameObject.FindGameObjectWithTag ("BGM");
         BGMaudioSources = BGM.GetComponents<AudioSource>();
-		state = gameState.InGame;
+		state = gameState.BeforeGame;
         themesong = assignThemesong;
         loseClip = assignLoseSong;
         existingMinions = new List<GameObject>();
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
         else if(state == gameState.InGame)
         {
 			CheckPrinceHealth();
+			CheckLevel ();
         }
         else if (state == gameState.BetweenLevels)
         {
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour {
 
     public void CheckLevel()
     {
-        if (state == gameState.InGame && existingMinions.Count <= 0)
+		if (state == gameState.InGame && existingMinions.Count <= 0 && levelManager.GetLevelGeneration())
         {
             levelManager.SetupNextLevel();
         }

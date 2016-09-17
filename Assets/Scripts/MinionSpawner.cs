@@ -5,7 +5,9 @@ public class MinionSpawner : MonoBehaviour {
 
 	public void Spawn(GameObject minion)
     {
-        GameManager.existingMinions.Add(minion);
-        Instantiate(minion, transform.position, transform.rotation);
+        
+		Debug.Log ("Minion created. Current Number: " + GameManager.existingMinions.Count);
+		GameObject createdMinion = Instantiate(minion, transform.position, transform.rotation) as GameObject;
+		GameManager.existingMinions.Add(createdMinion);
     }
 }

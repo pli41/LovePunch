@@ -24,11 +24,11 @@ public class LevelManager : MonoBehaviour {
             1,
             new int[][] {
                 new int[] { 0, 0, 0 },
-				new int[] { 0, 0, 0 },
-                new int[] { 0, 0, 0, 0 },
-                new int[] { 0, 0, 0, 0, 0, 0, 0, 0 }
+				new int[] { 2, 0, 2 },
+                new int[] { 1, 1, 2, 0 },
+                new int[] { 0, 2, 3, 2, 0, 1, 1, 0 }
             },
-            new float[] { 10f, 20f, 20f, 10f }
+            new float[] { 10f, 20f, 20f, 20f }
         );
 
         levels[1] = new Level(
@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour {
 
     void HandleSpawning()
     {
-        if (!creating)
+		if (!creating && !levelGenerationDone)
         {
             creating = true;
             waveTimer = new Timer(currentLevel.waveIntervals[currentWave], CreateWave, false);
@@ -99,8 +99,8 @@ public class LevelManager : MonoBehaviour {
             GameObject minion = gameManager.minions[currentLevel.waves[currentWave][minionIndex]];
 
             CreateMinion(spawners[spawnerNum].gameObject, minion);
-			Debug.Log ("Minion spawned at" + Time.time);
-
+			//Debug.Log ("Minion " + minion.name +"spawned at" + Time.time);
+			minionIndex++;
         }
 
         if (currentWave < currentLevel.waves.Length-1)
@@ -162,6 +162,10 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+	public bool GetLevelGeneration(){
+	
+		return levelGenerationDone;
+	}
 
 
 }
