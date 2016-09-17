@@ -23,12 +23,18 @@ public class LevelManager : MonoBehaviour {
         levels[0] = new Level(
             1,
             new int[][] {
-                new int[] { 0, 0, 0 },
+                new int[] { 0, 1, 0 },
 				new int[] { 2, 0, 2 },
+                new int[] { 1, 1, 2, 0 },
+                new int[] { 1, 1, 1, 1, 1, 2, 2 },
+                new int[] { 3, 3, 3 },
+                new int[] { 3, 3, 2, 2 },
+                new int[] { 3, 3, 2, 2, 1, 1 },
+                new int[] { 2, 2, 2, 2, 2, 2 },
                 new int[] { 1, 1, 2, 0 },
                 new int[] { 0, 2, 3, 2, 0, 1, 1, 0 }
             },
-            new float[] { 10f, 20f, 20f, 20f }
+            new float[] { 10f, 20f, 20f, 20f, 20f, 20f, 20f, 20f, 20f, 20f }
         );
 
         levels[1] = new Level(
