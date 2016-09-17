@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour {
                 new int[] { 1, 1, 2, 0 },
                 new int[] { 0, 2, 3, 2, 0, 1, 1, 0 }
             },
-            new float[] { 10f, 20f, 20f, 20f, 20f, 20f, 20f, 20f, 20f, 20f }
+            new float[] { 10f, 30f, 30f, 30f, 30f, 30f, 30f, 30f, 30f, 30f }
         );
 
         levels[1] = new Level(
