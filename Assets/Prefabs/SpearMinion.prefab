@@ -192,8 +192,8 @@ GameObject:
   - 65: {fileID: 65000010295618586}
   - 23: {fileID: 23000011802576470}
   - 65: {fileID: 65000011315578072}
+  - 114: {fileID: 114000012976138198}
   - 65: {fileID: 65000011067567126}
-  - 114: {fileID: 114000013121324504}
   m_Layer: 0
   m_Name: Spear
   m_TagString: Spear
@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8491ec606659349913a9b244841c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Normal
+  name: Spearer
   damage: 10
   speed: 1
   health: 150
@@ -837,7 +837,7 @@ MonoBehaviour:
   punchSounds:
   - {fileID: 8300000, guid: f729fa0e0c0d20a44b6b18b8402814b6, type: 3}
   - {fileID: 8300000, guid: a7418fd2e49bb014091ef1868e8982d7, type: 3}
---- !u!114 &114000013121324504
+--- !u!114 &114000012976138198
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7400f4a505469ee4aa290eb5f7df5948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 100
 --- !u!135 &135000012746106726
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -20,19 +20,21 @@ public class GameManager : MonoBehaviour {
     public LevelManager levelManager;
     public enum gameState {BeforeGame, InGame, BetweenLevels, AfterGame };
     public static gameState state;
+	public gameState stateTest;
 
 
 	// Use this for initialization
 	void Start () {
 		BGM = GameObject.FindGameObjectWithTag ("BGM");
         BGMaudioSources = BGM.GetComponents<AudioSource>();
-        state = gameState.InGame;
+		state = gameState.BeforeGame;
         themesong = assignThemesong;
         loseClip = assignLoseSong;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		stateTest = state;
         if (state == gameState.BeforeGame)
         {
             

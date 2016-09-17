@@ -32,7 +32,7 @@ public class Spear : MonoBehaviour
             if (col.gameObject.CompareTag("Enemy"))
             {
                 col.gameObject.GetComponent<Enemy>().ReceiveDamage(damage);
-                Destroy(gameObject, 2f);
+                Destroy(gameObject, 5f);
             }
         }
     }

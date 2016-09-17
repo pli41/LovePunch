@@ -10,8 +10,6 @@ public class LevelManager : MonoBehaviour {
     Timer waveTimer;
     int currentWave = 0;
     bool creating;
-    float generateTimeMin;
-    float generateTimeMax;
     [SerializeField]
     float sameSpawnerDelayTime;
 
@@ -22,10 +20,11 @@ public class LevelManager : MonoBehaviour {
             1,
             new int[][] {
                 new int[] { 0, 0, 0 },
+				new int[] { 0, 0, 0 },
                 new int[] { 0, 0, 0, 0 },
                 new int[] { 0, 0, 0, 0, 0, 0, 0, 0 }
             },
-            new float[] { 10f, 10f, 10f }
+            new float[] { 10f, 20f, 20f, 10f }
         );
 
         levels[1] = new Level(
@@ -97,15 +96,17 @@ public class LevelManager : MonoBehaviour {
             if (spawnerNum != lastSpawner)
             {
                 CreateMinion(spawners[spawnerNum].gameObject, minion);
+				Debug.Log ("Minion spawned at" + Time.time);
             }
             else
             {
                 Timer delayTimer = new Timer(sameSpawnerDelayTime, CreateMinion, spawners[spawnerNum].gameObject, minion, false);
             }
         }
-        if (++currentWave >= currentLevel.waves.Length)
+
+        if (currentWave < currentLevel.waves.Length)
         {
-            SetupNextLevel();
+			currentWave++;
         }
         
         creating = false;

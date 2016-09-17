@@ -222,12 +222,12 @@ public class Hand : MonoBehaviour
 
             if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
             {
-                Debug.Log("Dropped");
+                //Debug.Log("Dropped");
                 col.gameObject.transform.SetParent(null);
                 col.attachedRigidbody.isKinematic = false;
 
                 col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude * 5f);
-                Debug.Log(transformVelocity.magnitude);
+                //.Log(transformVelocity.magnitude);
 
                 tossObject(col.attachedRigidbody);
 
@@ -240,7 +240,7 @@ public class Hand : MonoBehaviour
         /* Pickup and Throw Spear */
         if (col.CompareTag("Spear"))
         {
-            if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Spear>().checkDetached() && !isEnemyPicked)
+			if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Spear>().checkDetached() && !isEnemyPicked)
             {
                 col.attachedRigidbody.isKinematic = true;
                 col.gameObject.transform.SetParent(gameObject.transform);

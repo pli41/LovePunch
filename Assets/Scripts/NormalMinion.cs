@@ -44,7 +44,7 @@ public class NormalMinion : Enemy {
     void FindTarget(){
         if (target == null)
         {
-            target = GameObject.FindWithTag("Princess").GetComponent<Transform>();
+            target = GameObject.FindWithTag("Prince").GetComponent<Transform>();
         }
     }
 
