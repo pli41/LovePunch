@@ -146,8 +146,8 @@ public class Enemy : MonoBehaviour {
         //DisableColliders();
         bloodAnimation.SetActive(true);
 		Destroy (healthBarObj);
-        
         Destroy(gameObject, 10f);
+        GameManager.existingMinions.Remove(gameObject);
     }
 
     protected virtual void OnCollisionEnter(Collision col)

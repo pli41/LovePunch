@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -22,14 +23,16 @@ public class GameManager : MonoBehaviour {
     public static gameState state;
 	public gameState stateTest;
 
+    public static List<GameObject> existingMinions;
 
 	// Use this for initialization
 	void Start () {
 		BGM = GameObject.FindGameObjectWithTag ("BGM");
         BGMaudioSources = BGM.GetComponents<AudioSource>();
-		state = gameState.BeforeGame;
+		state = gameState.InGame;
         themesong = assignThemesong;
         loseClip = assignLoseSong;
+        existingMinions = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -60,6 +63,14 @@ public class GameManager : MonoBehaviour {
         if (!BGMaudioSources[0].isPlaying)
         {
             AudioPlay.PlaySound(BGMaudioSources[0], themesong);
+        }
+    }
+
+    public void CheckLevel()
+    {
+        if (state == gameState.InGame && existingMinions.Count <= 0)
+        {
+            levelManager.SetupNextLevel();
         }
     }
 

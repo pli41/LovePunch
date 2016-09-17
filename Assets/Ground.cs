@@ -16,7 +16,6 @@ public class Ground : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("123123");
         HandleBloodStain(col);
     }
 

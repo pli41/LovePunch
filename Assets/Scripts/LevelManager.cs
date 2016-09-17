@@ -12,9 +12,13 @@ public class LevelManager : MonoBehaviour {
     bool creating;
     [SerializeField]
     float sameSpawnerDelayTime;
+    bool levelGenerationDone;
 
-	// Use this for initialization
-	void Start () {
+    int[] pickedSpawners;
+
+
+    // Use this for initialization
+    void Start () {
 
         levels[0] = new Level(
             1,
@@ -81,34 +85,32 @@ public class LevelManager : MonoBehaviour {
 
     void CreateWave()
     {
-        int[] pickedSpawners = new int[currentLevel.waves[currentWave].Length];
+        pickedSpawners = new int[currentLevel.waves[currentWave].Length];
         //chooose random spawners
         for (int i = 0; i < pickedSpawners.Length; i++)
         {
             pickedSpawners[i] = Random.Range(0, spawners.Length-1);
         }
+        Debug.Log(pickedSpawners);
 
-        int lastSpawner = 0;
         int minionIndex = 0;
         foreach (int spawnerNum in pickedSpawners)
         {
             GameObject minion = gameManager.minions[currentLevel.waves[currentWave][minionIndex]];
-            if (spawnerNum != lastSpawner)
-            {
-                CreateMinion(spawners[spawnerNum].gameObject, minion);
-				Debug.Log ("Minion spawned at" + Time.time);
-            }
-            else
-            {
-                Timer delayTimer = new Timer(sameSpawnerDelayTime, CreateMinion, spawners[spawnerNum].gameObject, minion, false);
-            }
+
+            CreateMinion(spawners[spawnerNum].gameObject, minion);
+			Debug.Log ("Minion spawned at" + Time.time);
+
         }
 
-        if (currentWave < currentLevel.waves.Length)
+        if (currentWave < currentLevel.waves.Length-1)
         {
 			currentWave++;
         }
-        
+        else
+        {
+            levelGenerationDone = true;
+        }
         creating = false;
     }
 
@@ -117,11 +119,12 @@ public class LevelManager : MonoBehaviour {
         spawner.GetComponent<MinionSpawner>().Spawn(minion);
     }
 
-    void SetupNextLevel()
+    public void SetupNextLevel()
     {
         GameManager.state = GameManager.gameState.BetweenLevels;
         currentLevel = levels[currentLevel.levelNum];
         currentWave = 0;
+        levelGenerationDone = false;
     }
 
     public class RandomLevel
