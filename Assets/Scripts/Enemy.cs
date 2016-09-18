@@ -152,11 +152,10 @@ public class Enemy : MonoBehaviour {
         //DisableColliders();
 		untertaken = true;
         bloodAnimation.SetActive(true);
+        bloodAnimation.GetComponent<ParticleSystem>().collision.SetPlane(0, GameObject.FindGameObjectWithTag("Ground").transform);
 		Destroy (healthBarObj);
         Destroy(gameObject, 10f);
-		Debug.Log ("Before removing Minions left: " + GameManager.existingMinions.Count);
         GameManager.existingMinions.Remove(gameObject);
-		Debug.Log ("After removing Minions left: " + GameManager.existingMinions.Count);
     }
 
     protected virtual void OnCollisionEnter(Collision col)

@@ -18,6 +18,7 @@ public class KillZone : MonoBehaviour {
         if (col.gameObject.GetComponent<Enemy>())
         {
             col.gameObject.GetComponent<Enemy>().ReceiveDamage(9999f);
+            Debug.Log("Killzone killed " + col.gameObject.name);
         }
         else
         {

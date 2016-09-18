@@ -107,4 +107,9 @@ public class GameManager : MonoBehaviour {
     {
         return state;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
