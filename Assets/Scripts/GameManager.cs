@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
+    LightManager lightManager;
+    [SerializeField]
     AudioClip assignThemesong;
     static AudioClip themesong;
     [SerializeField]
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour {
     public enum gameState {BeforeGame, InGame, BetweenLevels, AfterGame };
     public static gameState state;
 	public gameState stateTest;
-
+    
     public static List<GameObject> existingMinions;
 
 	// Use this for initialization
