@@ -20,11 +20,14 @@ public class LightManager : MonoBehaviour {
 
     public void StartGameLight()
     {
+		Debug.Log ("Light on");
+		fires [0].transform.parent.gameObject.SetActive (true);
         animator.SetTrigger("GameStart");
     }
 
     public void RestartGame()
     {
+		Debug.Log ("Light off");
         animator.SetTrigger("Restart");
     }
 }

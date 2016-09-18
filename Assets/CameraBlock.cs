@@ -20,7 +20,6 @@ public class CameraBlock : MonoBehaviour {
             VRCamera = GameObject.FindGameObjectWithTag("Player").transform;
         }
         meshRend = GetComponent<MeshRenderer>();
-        state = false;
 	}
 	
 	// Update is called once per frame

@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour {
     {
 		Debug.Log ("Start game");
         state = gameState.InGame;
+		lightManager.StartGameLight ();
         if (!BGMaudioSources[0].isPlaying)
         {
             AudioPlay.PlaySound(BGMaudioSources[0], themesong);
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour {
 
     public void Lose()
     {
+		lightManager.RestartGame();
 		Debug.Log ("Lose");
 		BGMaudioSources [0].loop = false;
         AudioPlay.PlaySound(BGMaudioSources[0], loseClip);
