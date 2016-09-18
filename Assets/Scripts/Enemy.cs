@@ -163,7 +163,8 @@ public class Enemy : MonoBehaviour {
     {
         if (col.gameObject.CompareTag("Ground") && isDead && transformVelocity.magnitude <= 0.1f)
         {
-            Instantiate(bloodStain, col.contacts[0].point, Quaternion.Euler(90f, 0f, 0f));
+			GameObject bloodStainObj = Instantiate(bloodStain, col.contacts[0].point, Quaternion.Euler(90f, 0f, 0f)) as GameObject;
+			Destroy (bloodStainObj, 5f);
         }
     }
 

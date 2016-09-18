@@ -211,7 +211,13 @@ public class Hand : MonoBehaviour
                 isSomethingPicked = true;
                 col.attachedRigidbody.isKinematic = true;
                 col.gameObject.transform.SetParent(gameObject.transform);
-                col.gameObject.GetComponent<NormalMinion>().Disable();
+				if (EnemyName.CompareTo ("Bomber") == 0) {
+					col.gameObject.GetComponent<BomberMinion> ().Disable ();
+				}
+				else {
+					col.gameObject.GetComponent<NormalMinion> ().Disable ();
+				}
+                
             }
 
             if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
@@ -219,7 +225,13 @@ public class Hand : MonoBehaviour
                 //Debug.Log("Dropped");
                 col.gameObject.transform.SetParent(null);
                 col.attachedRigidbody.isKinematic = false;
-                col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude);
+				if (EnemyName.CompareTo ("Bomber") == 0) {
+					col.gameObject.GetComponent<BomberMinion>().ReceiveDamage(transformVelocity.magnitude);
+				}
+				else {
+					col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude);
+				}
+                
                 //.Log(transformVelocity.magnitude);
                 tossObject(col.attachedRigidbody);
                 isSomethingPicked = false;
@@ -231,7 +243,11 @@ public class Hand : MonoBehaviour
         /* Pickup and Throw Spear */
         if (col.CompareTag("Spear"))
         {
-			if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) && col.gameObject.GetComponent<Spear>().checkDetached() && !isSomethingPicked)
+			Debug.Log (device);
+			if (device.GetTouchDown(
+				SteamVR_Controller.ButtonMask.Trigger) 
+				&& col.gameObject.GetComponent<Spear>().checkDetached() 
+				&& !isSomethingPicked)
             {
                 isSomethingPicked = true;
                 col.attachedRigidbody.isKinematic = true;
@@ -393,7 +409,7 @@ public class Hand : MonoBehaviour
         }
         else
         {
-            rigidBody.velocity = device.velocity * 2;
+			rigidBody.velocity = transformVelocity * 2;
             rigidBody.angularVelocity = device.angularVelocity;
         }
     }

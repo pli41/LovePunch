@@ -192,8 +192,8 @@ GameObject:
   - 65: {fileID: 65000010295618586}
   - 23: {fileID: 23000011802576470}
   - 65: {fileID: 65000011315578072}
-  - 114: {fileID: 114000012976138198}
   - 65: {fileID: 65000011067567126}
+  - 114: {fileID: 114000011818134534}
   m_Layer: 0
   m_Name: Spear
   m_TagString: Spear
@@ -837,7 +837,7 @@ MonoBehaviour:
   punchSounds:
   - {fileID: 8300000, guid: f729fa0e0c0d20a44b6b18b8402814b6, type: 3}
   - {fileID: 8300000, guid: a7418fd2e49bb014091ef1868e8982d7, type: 3}
---- !u!114 &114000012976138198
+--- !u!114 &114000011818134534
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

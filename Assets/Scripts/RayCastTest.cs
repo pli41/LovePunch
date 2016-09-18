@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class RaycastTest : MonoBehaviour
+public class RayCastTest : MonoBehaviour
 {
 
     SteamVR_Controller.Device device;

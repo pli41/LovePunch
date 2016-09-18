@@ -39,7 +39,7 @@ public class BomberMinion : Enemy {
     {
         if (target == null)
         {
-            target = GameObject.FindWithTag("Princess").GetComponent<Transform>();
+            target = GameObject.FindWithTag("Prince").GetComponent<Transform>();
         }
     }
 
@@ -81,7 +81,7 @@ public class BomberMinion : Enemy {
     //InRange
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Princess"))
+        if (col.gameObject.CompareTag("Prince"))
         {
             inRange = true;
 
