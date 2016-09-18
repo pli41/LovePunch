@@ -341,7 +341,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011164153920}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0557, y: 0, z: -0.0036}
+  m_LocalPosition: {x: -0.1389, y: 0, z: -0.0946}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -399,7 +399,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010355223450}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.18338983, y: 0.34, z: 2.34}
+  m_LocalPosition: {x: -0.18338983, y: 0.34, z: 1.52}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_Children:
@@ -674,7 +674,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -718,10 +718,10 @@ MonoBehaviour:
   damage: 10
   speed: 1
   health: 150
-  healthBarObj: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183,
-    type: 2}
+  healthBar: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183, type: 2}
   disabledTime: 2
   UIOffset: {x: 0, y: 1.5, z: 0}
+  initialScale: {x: 0.6, y: 0.2, z: 1}
   bloodAnimation: {fileID: 1000011780849312}
   bloodStain: {fileID: 1000011431726228, guid: 5cff61a81834d3e48a680db83da492b7, type: 2}
   throwFactor: 3

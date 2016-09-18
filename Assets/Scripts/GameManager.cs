@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     AudioClip assignLoseSong;
     static AudioClip loseClip;
-    [SerializeField]
     public Prince prince;
     [SerializeField]
     GameObject BGM;
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    public static void StartGame()
+    public void StartGame()
     {
 		Debug.Log ("Start game");
         state = gameState.InGame;
@@ -77,13 +76,15 @@ public class GameManager : MonoBehaviour {
 
     public void Reset()
     {
-        state = gameState.BeforeGame;
-        GameObject[] minions = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject gameObject in minions)
+		state = gameState.InGame;
+		levelManager.RestartCurrentLevel ();
+        GameObject[] currentMinions = GameObject.FindGameObjectsWithTag("Enemy");
+		foreach (GameObject gameObject in currentMinions)
         {
             Destroy(gameObject);
         }
 		prince.Reset ();
+		AudioPlay.PlaySound (BGMaudioSources[0], themesong);
 		BGMaudioSources [0].loop = true;
     }
 
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public static void Lose()
+    public void Lose()
     {
 		Debug.Log ("Lose");
 		BGMaudioSources [0].loop = false;

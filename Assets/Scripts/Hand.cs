@@ -36,9 +36,12 @@ public class Hand : MonoBehaviour
     float fireMulti;
 
     bool isSomethingPicked = false;
+	GameManager gameManager;
+
 
     void Awake()
     {
+		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager>();
         trail = GetComponent<TrailRenderer>();
         //rigid = GetComponent<Rigidbody>();
         playerVoiceSource = transform.parent.gameObject.GetComponent<AudioSource>();
@@ -379,7 +382,7 @@ public class Hand : MonoBehaviour
 
         if (GameManager.state == GameManager.gameState.BeforeGame)
         {
-            GameManager.StartGame();
+			gameManager.StartGame();
         }
     }
 

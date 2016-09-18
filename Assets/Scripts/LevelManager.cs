@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour {
                 new int[] { 1, 1, 2, 0 },
                 new int[] { 0, 2, 3, 2, 0, 1, 1, 0 }
             },
-            new float[] { 10f, 200f, 30f, 30f, 30f, 30f, 30f, 30f, 30f, 30f }
+            new float[] { 10f, 20f, 30f, 30f, 30f, 30f, 30f, 30f, 30f, 30f }
         );
 
         levels[1] = new Level(
@@ -138,9 +138,17 @@ public class LevelManager : MonoBehaviour {
     {
         GameManager.state = GameManager.gameState.BetweenLevels;
         currentLevel = levels[currentLevel.levelNum];
-        currentWave = 0;
-        levelGenerationDone = false;
+		ResetLevel ();
     }
+
+	public void RestartCurrentLevel(){
+		ResetLevel ();
+	}
+
+	void ResetLevel(){
+		currentWave = 0;
+		levelGenerationDone = false;
+	}
 
     public class RandomLevel
     {

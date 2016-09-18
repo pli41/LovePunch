@@ -336,7 +336,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011662453622}
   m_LocalRotation: {x: -0, y: 0.70160306, z: -0, w: -0.7125681}
-  m_LocalPosition: {x: 1.72, y: 0.2925005, z: 0.67}
+  m_LocalPosition: {x: 0.94391155, y: 0, z: 9.485743}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_LocalEulerAnglesHint: {x: 0, y: 270.862, z: 0}
   m_Children:
@@ -669,7 +669,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9442557, y: 1.09, z: 0.95297146}
+  m_Size: {x: 0.8, y: 0.8, z: 0.8}
   m_Center: {x: -0.015495002, y: 0.36999997, z: 0.017447194}
 --- !u!65 &65000013523506240
 BoxCollider:
@@ -757,7 +757,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -831,8 +831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd44514d03ce3cd4d912b1a2c168af15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  power: 100
+  damage: 50
+  power: 20
   explosionRadius: 3
   explosionEffect: {fileID: 1000013514699078, guid: 58c5d0cb34a4b564fbd5fcceb4bf1135,
     type: 2}
@@ -851,10 +851,10 @@ MonoBehaviour:
   damage: 10
   speed: 5
   health: 50
-  healthBarObj: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183,
-    type: 2}
+  healthBar: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183, type: 2}
   disabledTime: 2
   UIOffset: {x: 0, y: 1.5, z: 0}
+  initialScale: {x: 0.6, y: 0.2, z: 1}
   bloodAnimation: {fileID: 1000010694124440}
   bloodStain: {fileID: 1000011431726228, guid: 5cff61a81834d3e48a680db83da492b7, type: 2}
   throwFactor: 3

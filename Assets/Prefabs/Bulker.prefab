@@ -674,7 +674,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -718,10 +718,10 @@ MonoBehaviour:
   damage: 20
   speed: 0.8
   health: 400
-  healthBarObj: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183,
-    type: 2}
+  healthBar: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183, type: 2}
   disabledTime: 0
   UIOffset: {x: 0, y: 2, z: 0}
+  initialScale: {x: 0.6, y: 0.2, z: 1}
   bloodAnimation: {fileID: 1000012190714466}
   bloodStain: {fileID: 1000011431726228, guid: 5cff61a81834d3e48a680db83da492b7, type: 2}
   throwFactor: 3

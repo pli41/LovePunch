@@ -17,15 +17,18 @@ public class Prince : MonoBehaviour {
     [SerializeField]
     AudioClip[] hurtByPlayerSounds;
 
+	GameManager gameManager;
+
+
     // Use this for initialization
     void Start () {
         isDeath = false;
-
+		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        CheckDeath();
+        
 	}
 
     public void ReceiveDamage( float damage, bool friendly)
@@ -38,18 +41,22 @@ public class Prince : MonoBehaviour {
 
 		//Debug.Log (worldColor==null);
         //worldColor.saturation = this.health / 100;
-        
+		if(health <= 0f){
+			isDeath = true;
+			gameManager.Lose ();
+		}
+
         foreach (Hand hand in hands)
         {
             hand.onFire = false;
         }
         if (friendly)
         {
-            AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtSounds);
+			AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtByPlayerSounds);
         }
         else
         {
-            AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtByPlayerSounds);
+            AudioPlay.PlayRandomSound(GetComponent<AudioSource>(), hurtSounds);
         }
         
     }

@@ -19,9 +19,9 @@ public class Enemy : MonoBehaviour {
     private Rigidbody[] _childrenRigidBodies;
 
     [SerializeField]
-    GameObject healthBarObj;
+    GameObject healthBar;
     GameObject healthBarsObj;
-    
+	GameObject healthBarObj;
 
     bool disabled;
 	Timer disableTimer;
@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField]
     Vector3 UIOffset;
+	[SerializeField]
     Vector3 initialScale;
 
     GameObject player;
@@ -65,10 +66,9 @@ public class Enemy : MonoBehaviour {
 
     public void SetupUI()
     {
-        if(healthBarObj)
-            initialScale = healthBarObj.transform.localScale;
+        
         healthBarsObj = GameObject.FindGameObjectWithTag("EnemyHealthBars");
-        healthBarObj = (GameObject)Instantiate(healthBarObj, healthBarsObj.GetComponent<Transform>());
+        healthBarObj = (GameObject)Instantiate(healthBar, healthBarsObj.GetComponent<Transform>());
         player = GameObject.FindGameObjectWithTag("Player");
 		healthBarObj.transform.position = transform.position + UIOffset;   
         healthBarObj.GetComponent<Slider>().maxValue = health;
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour {
             healthBarObj.GetComponent<Slider>().value = health;
             healthBarObj.transform.position = transform.position + UIOffset;
             healthBarObj.transform.LookAt(new Vector3(player.transform.position.x, healthBarObj.transform.position.y, player.transform.position.z));
-            healthBarObj.GetComponent<RectTransform>().localScale = initialScale;
+			healthBarObj.GetComponent<RectTransform>().localScale = initialScale;
         }
     }
 
