@@ -13,8 +13,9 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     float health;
     bool isDead;
-
-	bool untertaken;
+    public bool punchedDown;
+    public float punchedDownBonus;
+    bool untertaken;
 
     private Rigidbody[] _childrenRigidBodies;
 
@@ -92,9 +93,17 @@ public class Enemy : MonoBehaviour {
 		disabled = true;
 	}
 
-	void Recover()
+    public void Disable(float time)
+    {
+        //Debug.Log ("Disabled");
+        disableTimer = new Timer(time, Recover, false);
+        disabled = true;
+    }
+
+    void Recover()
 	{
-		disabled = false;
+        punchedDown = false;
+        disabled = false;
 	}
 
 	public float GetThrowFactor(){
@@ -116,7 +125,14 @@ public class Enemy : MonoBehaviour {
 	}
 
     public virtual void ReceiveDamage(float damage) {
-        health -= damage;
+        if (punchedDown)
+        {
+            health -= damage * punchedDownBonus;
+        }
+        else
+        {
+            health -= damage;
+        }
         CheckDeath();
     }
 
@@ -146,7 +162,7 @@ public class Enemy : MonoBehaviour {
         return (health - comingDamage) <= 0;
     }
 
-    public void Death()
+    public virtual void Death()
     {
         //EnableRagdoll();
         //DisableColliders();

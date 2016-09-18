@@ -16,11 +16,13 @@ public class GameManager : MonoBehaviour {
     public Prince prince;
     [SerializeField]
     GameObject BGM;
+
+    public CameraBlock cameraBlock;
     public static AudioSource[] BGMaudioSources;//0 for Themesong, 1 for ambient wind
 
     public GameObject[] minions;
     public LevelManager levelManager;
-    public enum gameState {BeforeGame, InGame, BetweenLevels, AfterGame };
+    public enum gameState {BeforeGame, Intro, InGame, BetweenLevels, King1, King2, AfterGame };
     public static gameState state;
 	public gameState stateTest;
     
@@ -58,10 +60,18 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+    public void StartIntro()
+    {
+        state = gameState.Intro;
+        cameraBlock.start = true;
+    }
+
     public void StartGame()
     {
 		Debug.Log ("Start game");
         state = gameState.InGame;
+
+
 		lightManager.StartGameLight ();
         if (!BGMaudioSources[0].isPlaying)
         {

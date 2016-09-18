@@ -35,6 +35,11 @@ public class Hand : MonoBehaviour
     public float onFireMultiNum;
     float fireMulti;
 
+    [SerializeField]
+    AudioClip pickUpBomb;
+    [SerializeField]
+    AudioClip throwBomb;
+
     bool isSomethingPicked = false;
 	GameManager gameManager;
 
@@ -276,6 +281,7 @@ public class Hand : MonoBehaviour
                 isSomethingPicked = true;
                 col.attachedRigidbody.isKinematic = true;
                 col.gameObject.transform.SetParent(gameObject.transform);
+                AudioPlay.PlaySound(audioSource, pickUpBomb);
             }
             if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
             {
@@ -284,6 +290,7 @@ public class Hand : MonoBehaviour
                 col.attachedRigidbody.isKinematic = false;
                 tossBomb(col.attachedRigidbody);
                 isSomethingPicked = false;
+                AudioPlay.PlaySound(audioSource, throwBomb);
             }
         }
         /* Pickup and Throw Bomb END*/
@@ -320,8 +327,16 @@ public class Hand : MonoBehaviour
                         spearRigidBody.mass = 100;
                         spearRigidBody.isKinematic = false;
                     }
-
                 }
+
+                if (EnemyName.CompareTo("Bulker") == 0)
+                {
+                    if (hit.name == "BulkerFeet")
+                    {
+                        hit.transform.parent.gameObject.GetComponent<NormalMinion>().PunchedDown();
+                    }
+                }
+
 
                 Punch(hit.GetComponent<Rigidbody>(), col.contacts[0].point);
             }

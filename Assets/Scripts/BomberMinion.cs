@@ -10,13 +10,14 @@ public class BomberMinion : Enemy {
     
     [SerializeField]
     AudioClip[] punchSounds;
-
+    Transform bombChild;
     AudioSource audioSource;
     
 
     // Use this for initialization
     void Start()
     {
+        bombChild = transform.Find("Bomb");
         FindTarget();
         audioSource = GetComponent<AudioSource>();
         SetupUI();
@@ -29,7 +30,6 @@ public class BomberMinion : Enemy {
         if (GameManager.state == GameManager.gameState.InGame)
         {
             Act();
-
             CalculateVelocity();
         }
 
@@ -86,20 +86,24 @@ public class BomberMinion : Enemy {
             inRange = true;
 
             // Drop Bomb
-            Transform bombChild = transform.Find("Bomb");
 
             //If spear exists, drop bomb, attach a rigid body
             if (bombChild)
             {
-				isBombDropped = true;
-                bombChild.SetParent(null);
-                Rigidbody bombRigidBody = bombChild.gameObject.AddComponent<Rigidbody>();
-                bombRigidBody.mass = 1;
-                bombRigidBody.isKinematic = false;
-                bombChild.gameObject.GetComponent<Bomb>().DetachFromEnemy();
+                ThrowBomb();
             }
 
         }
+    }
+
+    void ThrowBomb()
+    {
+        isBombDropped = true;
+        bombChild.SetParent(null);
+        Rigidbody bombRigidBody = bombChild.gameObject.AddComponent<Rigidbody>();
+        bombRigidBody.mass = 1;
+        bombRigidBody.isKinematic = false;
+        bombChild.gameObject.GetComponent<Bomb>().DetachFromEnemy();
     }
 
     //Out of Range
@@ -110,6 +114,19 @@ public class BomberMinion : Enemy {
             inRange = false;
             Destroy(gameObject, 5f);
         }
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        ThrowBomb();
+    }
+
+   public override void ReceiveDamage(float damage)
+    {
+        base.ReceiveDamage(damage);
+        ThrowBomb();
+        Disable();
     }
 
     protected override void OnCollisionEnter(Collision col)
@@ -135,13 +152,6 @@ public class BomberMinion : Enemy {
     public override void DealDamage(GameObject victim)
     {
         victim.GetComponent<Prince>().ReceiveDamage(GetDamage(), false);
-    }
-
-
-    public override void ReceiveDamage(float damage)
-    {
-        base.ReceiveDamage(damage);
-        Disable();
     }
 
 }

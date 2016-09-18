@@ -5,9 +5,10 @@ public class ArenaCheck : MonoBehaviour {
 
     [SerializeField]
     Hand[] hands;
+    GameManager gameManager;
 	// Use this for initialization
 	void Start () {
-	
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -28,7 +29,8 @@ public class ArenaCheck : MonoBehaviour {
                 hands[0].onFire = true;
                 hands[1].onFire = true;
             }
-			
+
+            
         }
     }
 }

@@ -4,12 +4,17 @@ using System.Collections;
 public class NormalMinion : Enemy {
 
     public Transform target;
+    private Timer raisePrinceTimer; // angie
+    [SerializeField]
+    private Vector3 raisedOffset; //angie
 
-    
     private Timer attackTimer;
 
     private bool inRange;
+    private bool pickedUp; //angie
 
+    [SerializeField]
+    float punchDisableTime;
 	[SerializeField]
 	AudioClip[] punchSounds;
 
@@ -36,10 +41,6 @@ public class NormalMinion : Enemy {
         }
         
     }
-
-    
-
-
 
     void FindTarget(){
         if (target == null)
@@ -76,26 +77,58 @@ public class NormalMinion : Enemy {
 
     public void Attack()
     {
+        /*
 		if (!CheckDisabled()  && inRange && !CheckDeath())
         {
             attackTimer.RunTimer();
-        }       
+        }
+        */
+        if (pickedUp) // angie
+        {
+            raisePrinceTimer.RunTimer();
+        }
     }
-    
+
+    public override void Death()
+    {
+        base.Death();
+    }
+
     //InRange
     void OnTriggerEnter( Collider col)
     {
-        if ( col.gameObject.CompareTag("Princess"))
+        /*
+        if ( col.gameObject.CompareTag("Prince"))
         {
             inRange = true;
             attackTimer = new Timer(2f, DealDamage, col.gameObject, true);
+        }
+        */
+
+        if (col.gameObject.CompareTag("Prince"))  // angie
+        {
+            Debug.Log(col.gameObject.name);
+            pickedUp = true;
+            raisePrinceTimer = new Timer(2f, RaisePrince, col.gameObject, false);
+        }
+    }
+
+    private void RaisePrince(GameObject victim) // angie
+    {
+        if (victim != null)
+        {
+            victim.transform.position = transform.position;
+            victim.transform.localRotation = Quaternion.Euler(-90f, 0f, 0.0f);
+            victim.transform.position += raisedOffset;
+            victim.transform.SetParent(gameObject.transform);
+            Debug.Log("Prince is raised up!");
         }
     }
 
     //Out of Range
     void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.CompareTag("Princess"))
+        if (col.gameObject.CompareTag("Prince"))
         {
             inRange = false;
         }
@@ -128,6 +161,15 @@ public class NormalMinion : Enemy {
     public override void ReceiveDamage(float damage)
     {
         base.ReceiveDamage(damage);
-		Disable ();
+        if (name != "Bulker")
+        {
+            Disable();
+        }
+    }
+
+    public void PunchedDown()
+    {
+        Disable(punchDisableTime);
+        punchedDown = true;
     }
 }

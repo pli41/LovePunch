@@ -22,28 +22,45 @@ public class LevelManager : MonoBehaviour {
         levels[0] = new Level(
             1,
             new int[][] {
-                new int[] { 2, 2, 2 },
-				new int[] { 2, 4, 4 },
-                new int[] { 1, 1, 2, 4 },
-                new int[] { 1, 4, 4, 4, 1, 2, 2 },
-                new int[] { 3, 4, 3 },
-                new int[] { 3, 3, 2, 2 },
-                new int[] { 3, 3, 2, 2, 1, 1 },
-                new int[] { 2, 2, 2, 2, 2, 2 },
-                new int[] { 1, 1, 2, 0 },
-                new int[] { 0, 2, 3, 2, 0, 1, 1, 0 }
+                new int[] { 0, 0 },
+				new int[] { 0, 0, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0},
+                new int[] { 1, 4, 4, 4, 1, 2, 2 }
             },
-            new float[] { 10f, 20f, 30f, 30f, 30f, 30f, 30f, 30f, 30f, 30f }
+            new float[] { 10f, 20f, 20f, 30f}
         );
 
         levels[1] = new Level(
             2,
             new int[][] {
-                new int[] { 1, 3, 1 },
-                new int[] { 1, 1, 3, 1 },
-                new int[] { 1, 1, 4, 1, 4, 1, 1, 1 }
+                new int[] { 1, 1, 1 },
+                new int[] { 0, 0, 1, 1 },
+                new int[] { 0, 1, 1, 1, 1 },
+                new int[] { 1, 1, 1, 0, 0, 0, 0 }
             },
-            new float[] { 10f, 10f, 10f }
+            new float[] { 10f, 20f, 20f, 20f }
+        );
+
+        levels[1] = new Level(
+            3,
+            new int[][] {
+                new int[] { 1, 3, 0 },
+                new int[] { 3, 0, 1, 1 },
+                new int[] { 0, 1, 1, 1, 3 },
+                new int[] { 1, 1, 1, 0, 0, 0, 3 }
+            },
+            new float[] { 10f, 25f, 25f, 25f }
+        );
+
+        levels[1] = new Level(
+            4,
+            new int[][] {
+                new int[] { 0, 0, 0, 4 },
+                new int[] { 0, 0, 1, 1, 1, 4 },
+                new int[] { 4, 4, 0, 3, 1 },
+                new int[] { 4, 4, 3, 3, 1, 0, 0 }
+            },
+            new float[] { 10f, 30f, 30f, 30f }
         );
         /*
         levels[1] = new Level(

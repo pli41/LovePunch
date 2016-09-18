@@ -5,7 +5,7 @@ public class Bomb : MonoBehaviour {
 
     [SerializeField]
     float damage;
-    bool isDetached = false;
+    bool isDetached = true;
 
     [SerializeField]
     float power = 1.0f;
@@ -55,7 +55,7 @@ public class Bomb : MonoBehaviour {
 			//Prince damage
 			if (hit.gameObject.CompareTag ("Prince")) 
 			{
-				hit.gameObject.GetComponent<Prince> ().ReceiveDamage (damage, false);
+				hit.gameObject.GetComponent<Prince> ().ReceiveDamage (damage/4f, false);
 			}
         }
 

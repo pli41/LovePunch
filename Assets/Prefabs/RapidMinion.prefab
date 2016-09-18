@@ -718,6 +718,8 @@ MonoBehaviour:
   damage: 10
   speed: 1.8
   health: 50
+  punchedDown: 0
+  punchedDownBonus: 0
   healthBar: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183, type: 2}
   disabledTime: 2
   UIOffset: {x: 0, y: 1.5, z: 0}
@@ -727,6 +729,8 @@ MonoBehaviour:
   throwFactor: 3
   afterMass: 0.5
   target: {fileID: 0}
+  raisedOffset: {x: 0, y: 1.45, z: 0.53}
+  punchDisableTime: 0
   punchSounds:
   - {fileID: 8300000, guid: f729fa0e0c0d20a44b6b18b8402814b6, type: 3}
   - {fileID: 8300000, guid: a7418fd2e49bb014091ef1868e8982d7, type: 3}
