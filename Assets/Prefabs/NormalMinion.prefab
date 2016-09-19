@@ -716,12 +716,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Normal
   damage: 10
-  speed: 1
+  speed: 1.2
   health: 150
   punchedDown: 0
   punchedDownBonus: 0
   healthBar: {fileID: 1000011082018384, guid: 26b8967a4a9c9bf43ab0d833fec1d183, type: 2}
-  disabledTime: 2
+  disabledTime: 1.5
   UIOffset: {x: 0, y: 1.5, z: 0}
   initialScale: {x: 0.6, y: 0.2, z: 1}
   bloodAnimation: {fileID: 1000011780849312}

@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour {
     {
 		if (state == gameState.InGame && existingMinions.Count <= 0 && levelManager.GetLevelGeneration())
         {
+            Debug.Log("Setup Next Level");
             levelManager.SetupNextLevel();
         }
     }

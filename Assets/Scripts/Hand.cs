@@ -234,10 +234,10 @@ public class Hand : MonoBehaviour
                 col.gameObject.transform.SetParent(null);
                 col.attachedRigidbody.isKinematic = false;
 				if (EnemyName.CompareTo ("Bomber") == 0) {
-					col.gameObject.GetComponent<BomberMinion>().ReceiveDamage(transformVelocity.magnitude);
+					col.gameObject.GetComponent<BomberMinion>().ReceiveDamage(transformVelocity.magnitude*2F);
 				}
 				else {
-					col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude);
+					col.gameObject.GetComponent<NormalMinion>().ReceiveDamage(transformVelocity.magnitude*2F);
 				}
                 
                 //.Log(transformVelocity.magnitude);

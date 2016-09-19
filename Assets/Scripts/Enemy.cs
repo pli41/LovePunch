@@ -108,7 +108,9 @@ public class Enemy : MonoBehaviour {
         {
             transform.parent.gameObject.GetComponent<Hand>().isSomethingPicked = false;
             gameObject.transform.SetParent(null);
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            
         }
 	}
 

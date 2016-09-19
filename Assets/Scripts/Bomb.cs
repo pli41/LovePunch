@@ -5,7 +5,7 @@ public class Bomb : MonoBehaviour {
 
     [SerializeField]
     float damage;
-    bool isDetached = true;
+    bool isDetached = false;
 
     [SerializeField]
     float power = 1.0f;

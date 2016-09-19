@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
+        /*
         levels[0] = new Level(
             1,
             new int[][] {
@@ -75,6 +75,42 @@ public class LevelManager : MonoBehaviour {
                 new int[] { 4, 4, 3, 3, 1, 0, 0 }
             },
             new float[] { 10f, 30f, 30f, 30f }
+        );
+        */
+
+
+
+        levels[0] = new Level(
+            1,
+            new int[][] {
+                new int[] { 0 },
+            },
+            new float[] { 5f}
+        );
+
+        levels[1] = new Level(
+            2,
+            new int[][] {
+                new int[] { 1},
+            },
+            new float[] { 5f}
+        );
+
+        levels[2] = new Level(
+            3,
+            new int[][] {
+                new int[] { 1},
+
+            },
+            new float[] { 5f}
+        );
+
+        levels[3] = new Level(
+            4,
+            new int[][] {
+                new int[] { 0}
+            },
+            new float[] { 5f}
         );
         /*
         levels[1] = new Level(
@@ -207,13 +243,14 @@ public class LevelManager : MonoBehaviour {
     public void SetupNextLevel()
     {
         betweenLevelFinished = false;
-        GameManager.state = GameManager.gameState.InGame;
-        if (currentLevel.levelNum >= levels.Length)
+        if (currentLevel.levelNum < levels.Length)
         {
+            Debug.Log(currentLevel.levelNum + " current Level Num, " + "Going to level " + currentLevel.levelNum);
             currentLevel = levels[currentLevel.levelNum];
         }
         else
         {
+            Debug.Log("King Level");
             GameManager.state = GameManager.gameState.King;
         }
 

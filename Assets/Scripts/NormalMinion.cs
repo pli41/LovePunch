@@ -68,7 +68,7 @@ public class NormalMinion : Enemy {
                 Vector3 targetPoint = target.position;
                 targetPoint.y = transform.position.y;
                 transform.LookAt(targetPoint);
-                Vector3 destPos = new Vector3(target.position.x, transform.position.y, target.position.z);
+                Vector3 destPos = targetPoint;
                 transform.position = Vector3.MoveTowards(transform.position, destPos, GetSpeed() * Time.deltaTime);
             }
         }
@@ -196,13 +196,22 @@ public class NormalMinion : Enemy {
 
     public void ReleasePrince()
     {
-        if (pickedUp)
+        Debug.Log(gameObject.name + " Released");
+        if (pickedUp || pickingUp)
         {
-            Transform princeTransform = transform.Find("Prince");
-            princeTransform.position -= raisedOffset;
-            princeTransform.SetParent(null);
+            
+            
+            if (pickedUp)
+            {
+                Transform princeTransform = transform.Find("Prince");
+                princeTransform.position -= raisedOffset;
+                princeTransform.SetParent(null);
+                tossTimer.Reset();
+            }
+            raisePrinceTimer.Reset();
+            pickedUp = false;
+            pickingUp = false;
         }
-        pickedUp = false;
-        pickingUp = false;
+        
     }
 }
