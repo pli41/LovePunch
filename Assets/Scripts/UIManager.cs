@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     Slider HP_Bar;
     [SerializeField]
+    Slider HP_Bar_Player;
+    [SerializeField]
     GameManager gameManager;
     Prince prince;
 
@@ -29,7 +31,7 @@ public class UIManager : MonoBehaviour {
     {
         //HP_Bar
         HP_Bar.value = prince.GetHealth();
-
+        HP_Bar_Player.value = gameManager.player.hp;
         if (GameManager.state == GameManager.gameState.BeforeGame)
         {
             SetGameObjects(beforeGameComponents, true);

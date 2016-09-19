@@ -7,7 +7,7 @@ public class NormalMinion : Enemy {
     private Timer raisePrinceTimer; // angie
     [SerializeField]
     private Vector3 raisedOffset; //angie
-
+    private Timer attackTimer;
     private Timer tossTimer;
 
     private bool inRange;
@@ -20,11 +20,14 @@ public class NormalMinion : Enemy {
 	AudioClip[] punchSounds;
     GameManager gameManager;
     AudioSource audioSource;
-    
+    Animator animator;
+
+    bool targetIsPlayer;
 
     // Use this for initialization
     void Start()
     {
+        animator = GetComponent<Animator>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         FindTarget();
         audioSource = GetComponent<AudioSource>();
@@ -39,16 +42,24 @@ public class NormalMinion : Enemy {
         if (GameManager.state == GameManager.gameState.InGame)
         {
             Act();
-            
 			CalculateVelocity ();
         }
-        
     }
 
     void FindTarget(){
         if (target == null)
         {
-            target = GameObject.FindWithTag("Prince").GetComponent<Transform>();
+            if (Random.Range(0f, 1f) <= 0.5f)
+            {
+                target = GameObject.FindWithTag("Player").GetComponent<Transform>();
+                targetIsPlayer = true;
+            }
+            else
+            {
+                target = GameObject.FindWithTag("Prince").GetComponent<Transform>();
+                targetIsPlayer = false;
+            }
+            
         }
     }
 
@@ -65,6 +76,7 @@ public class NormalMinion : Enemy {
         {
             if (target != null && !CheckDeath() && !pickedUp && !pickingUp)
             {
+                animator.SetBool("InAttackRange", false);
                 Vector3 targetPoint = target.position;
                 targetPoint.y = transform.position.y;
                 transform.LookAt(targetPoint);
@@ -81,19 +93,28 @@ public class NormalMinion : Enemy {
     public void Attack()
     {
         /*
-		if (!CheckDisabled()  && inRange && !CheckDeath())
-        {
-            attackTimer.RunTimer();
-        }
+		
         */
-        if (pickingUp) // angie
+        if (targetIsPlayer)
         {
-            raisePrinceTimer.RunTimer();
+            if (!CheckDisabled() && inRange && !CheckDeath())
+            {
+                attackTimer.RunTimer();
+            }
         }
-
-        if (pickedUp)
+        else
         {
-            tossTimer.RunTimer();
+            if (pickingUp) // angie
+            {
+                animator.SetBool("InAttackRange", true);
+                raisePrinceTimer.RunTimer();
+            }
+
+            if (pickedUp)
+            {
+                animator.SetBool("InAttackRange", true);
+                tossTimer.RunTimer();
+            }
         }
     }
 
@@ -105,13 +126,13 @@ public class NormalMinion : Enemy {
     //InRange
     void OnTriggerEnter( Collider col)
     {
-        /*
-        if ( col.gameObject.CompareTag("Prince"))
+
+        if ( col.gameObject.CompareTag("Player"))
         {
             inRange = true;
             attackTimer = new Timer(2f, DealDamage, col.gameObject, true);
         }
-        */
+
 
         if (col.gameObject.CompareTag("Prince"))  // angie
         {
@@ -140,6 +161,11 @@ public class NormalMinion : Enemy {
         if (col.gameObject.CompareTag("Prince"))
         {
             inRange = false;
+            if (pickingUp)
+            {
+                pickingUp = false;
+                raisePrinceTimer.Reset();
+            }
         }
     }
 
@@ -163,7 +189,7 @@ public class NormalMinion : Enemy {
 
     public override void DealDamage(GameObject victim)
     {
-        victim.GetComponent<Prince>().ReceiveDamage(GetDamage(),false   );
+        victim.GetComponent<Player>().ReceiveDamage(GetDamage());
     }
 
 
@@ -185,6 +211,7 @@ public class NormalMinion : Enemy {
     public void TossPrince()
     {
         Debug.Log("prince is tossed");
+        animator.SetTrigger("ThrowTrigger");
         gameManager.Lose();
     }
 
@@ -212,6 +239,5 @@ public class NormalMinion : Enemy {
             pickedUp = false;
             pickingUp = false;
         }
-        
     }
 }

@@ -29,7 +29,7 @@ public class CameraBlock : MonoBehaviour {
         currentState = blockState.idle;
         if (!VRCamera)
         {
-            VRCamera = GameObject.FindGameObjectWithTag("Player").transform;
+            VRCamera = GameObject.FindGameObjectWithTag("PlayerCamera").transform;
         }
         meshRend = GetComponent<MeshRenderer>();
         animator = GetComponent<Animator>();

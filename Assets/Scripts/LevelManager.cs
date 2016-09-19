@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         audiosources = GetComponents<AudioSource>();
-        /*
+        
         levels[0] = new Level(
             1,
             new int[][] {
@@ -78,7 +78,8 @@ public class LevelManager : MonoBehaviour {
             },
             new float[] { 10f, 30f, 30f, 30f }
         );
-        */
+        
+        /*
         levels[0] = new Level(
             1,
             new int[][] {
@@ -111,7 +112,8 @@ public class LevelManager : MonoBehaviour {
             },
             new float[] { 5f}
         );
-        Debug.Log(levels.Length);
+        */
+        //Debug.Log(levels.Length);
         /*
         levels[1] = new Level(
 

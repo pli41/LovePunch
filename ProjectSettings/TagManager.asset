@@ -16,6 +16,7 @@ TagManager:
   - Princess
   - Bomb
   - StartButton
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX

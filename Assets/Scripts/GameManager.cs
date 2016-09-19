@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     AudioClip assignLoseSong;
     static AudioClip loseClip;
     public Prince prince;
+    public Player player;
     [SerializeField]
     GameObject BGM;
 
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour {
 		Debug.Log ("Start game");
         state = gameState.InGame;
 		lightManager.StartGameLight ();
-        
+        StartTheme();
     }
 
     public void StartTheme()

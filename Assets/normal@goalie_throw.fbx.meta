@@ -45,6 +45,7 @@ ModelImporter:
     400036: spine
     7400000: mixamo.com
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -59,7 +60,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -91,8 +92,247 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    human: []
-    skeleton: []
+    human:
+    - boneName: root
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftHip
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: rightHip
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftKnee
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: rightKnee
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: rightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint1
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: spine
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint2
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: joint3
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftArm1
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftHand1
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: leftToe
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: rightToe
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: normal@goalie_throw(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: root
+      position: {x: -0.00005328456, y: 0.0064319298, z: 0.00053268764}
+      rotation: {x: 0.02452803, y: -0.100515984, z: 0.17592713, w: 0.97895074}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint1
+      position: {x: 0.00084399997, y: 0.002563, z: 0.000008999999}
+      rotation: {x: -0.5639595, y: 0.82135296, z: 0.08049215, w: -0.029154902}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: spine
+      position: {x: -0.0031609999, y: 0.0000050000003, z: 0.000064}
+      rotation: {x: 0.70791954, y: -0.036801994, z: 0.037323806, w: 0.70434546}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: head
+      position: {x: -0.006789, y: 0, z: 0}
+      rotation: {x: 0.49763608, y: -0.50235283, z: 0.49763608, w: 0.50235283}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint2
+      position: {x: -0.00068, y: 0.00034, z: -0.0036489998}
+      rotation: {x: 0.60146284, y: -0.3547842, z: 0.6576967, w: 0.2824992}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftArm
+      position: {x: -0.005114, y: 0.000533, z: 0}
+      rotation: {x: -0.02486074, y: -0.008809328, z: -0.06329526, w: 0.99764633}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftHand
+      position: {x: -0.006863, y: 0, z: 0}
+      rotation: {x: -0.000081073165, y: -0.010329231, z: -0.007848247, w: 0.9999159}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: joint3
+      position: {x: -0.00068, y: 0.00034, z: 0.0036489998}
+      rotation: {x: -0.37191993, y: -0.5957624, z: -0.29139715, w: 0.64948475}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftArm1
+      position: {x: 0.005114, y: -0.000533, z: 0}
+      rotation: {x: -0.023710623, y: -0.007114649, z: -0.06888889, w: 0.9973172}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftHand1
+      position: {x: 0.006863, y: 0, z: 0}
+      rotation: {x: -0.000081073165, y: -0.010329231, z: -0.007848247, w: 0.9999159}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftHip
+      position: {x: -0.003271, y: 0, z: 0}
+      rotation: {x: 0.4047147, y: 0.6243414, z: 0.2139727, w: 0.6329451}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftKnee
+      position: {x: -0.001914, y: -0.000757, z: -0.000557}
+      rotation: {x: 0.77738434, y: 0.6280292, z: 0.035164654, w: 0.004040122}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftFoot
+      position: {x: -0.003242, y: -0.0009979999, z: 0}
+      rotation: {x: 0.47613454, y: 0.8786781, z: -0.033853315, w: 0.008646968}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: leftToe
+      position: {x: -0.002382, y: 0.00027, z: 0}
+      rotation: {x: -0.048422202, y: -0.7054469, z: -0.048422202, w: 0.7054469}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rightHip
+      position: {x: 0.0024169998, y: -0.002002, z: -0.0010149999}
+      rotation: {x: 0.598423, y: -0.50645113, z: 0.59165895, w: -0.18798114}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rightKnee
+      position: {x: 0.001929, y: 0.000718, z: 0.000528}
+      rotation: {x: 0.8424839, y: 0.5311123, z: 0.038529336, w: 0.0815851}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rightFoot
+      position: {x: 0.0032469998, y: 0.000983, z: 0}
+      rotation: {x: 0.53502315, y: 0.84321284, z: 0.016593508, w: 0.04966847}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rightToe
+      position: {x: 0.002382, y: -0.00027, z: 0}
+      rotation: {x: -0.048422202, y: -0.7054469, z: -0.048422202, w: 0.7054469}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -103,7 +343,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
