@@ -18,14 +18,15 @@ public class Movie : MonoBehaviour {
         r = GetComponent<Renderer>();
 		Debug.Log (r.material.mainTexture);
         movie = (MovieTexture)r.material.mainTexture;
-		movieLength = movie.duration;
-		//r.enabled = false;
+		//movieLength = movie.duration;
+		r.enabled = false;
 		audioSource = GetComponent<AudioSource>();
         cameraBlock = transform.parent.gameObject.GetComponent<CameraBlock>();
     }
 	
 	public void Play()
     {
+        Debug.Log("movie playing");
 		if(!isPlaying){
 			isPlaying = true;
 			r.enabled = true;
@@ -41,6 +42,7 @@ public class Movie : MonoBehaviour {
 		Debug.Log ("Finish");
 		audioSource.Stop ();
 		movieLight.enabled = false;
+        r.enabled = false;
         cameraBlock.currentState = CameraBlock.blockState.fadingBlackTo;
     }
 }

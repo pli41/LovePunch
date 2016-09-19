@@ -8,25 +8,28 @@ public class NormalMinion : Enemy {
     [SerializeField]
     private Vector3 raisedOffset; //angie
 
-    private Timer attackTimer;
+    private Timer tossTimer;
 
     private bool inRange;
     private bool pickedUp; //angie
+    private bool pickingUp;
 
     [SerializeField]
     float punchDisableTime;
 	[SerializeField]
 	AudioClip[] punchSounds;
-
+    GameManager gameManager;
     AudioSource audioSource;
     
 
     // Use this for initialization
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         FindTarget();
         audioSource = GetComponent<AudioSource>();
         SetupUI();
+        tossTimer = new Timer(5f, TossPrince, false);
     }
 
 
@@ -60,7 +63,7 @@ public class NormalMinion : Enemy {
     {
 		if (!CheckDisabled())
         {
-            if (target != null && !CheckDeath() && !inRange)
+            if (target != null && !CheckDeath() && !pickedUp && !pickingUp)
             {
                 Vector3 targetPoint = target.position;
                 targetPoint.y = transform.position.y;
@@ -83,9 +86,14 @@ public class NormalMinion : Enemy {
             attackTimer.RunTimer();
         }
         */
-        if (pickedUp) // angie
+        if (pickingUp) // angie
         {
             raisePrinceTimer.RunTimer();
+        }
+
+        if (pickedUp)
+        {
+            tossTimer.RunTimer();
         }
     }
 
@@ -108,7 +116,7 @@ public class NormalMinion : Enemy {
         if (col.gameObject.CompareTag("Prince"))  // angie
         {
             Debug.Log(col.gameObject.name);
-            pickedUp = true;
+            pickingUp = true;
             raisePrinceTimer = new Timer(2f, RaisePrince, col.gameObject, false);
         }
     }
@@ -118,9 +126,10 @@ public class NormalMinion : Enemy {
         if (victim != null)
         {
             victim.transform.position = transform.position;
-            victim.transform.localRotation = Quaternion.Euler(-90f, 0f, 0.0f);
+            //victim.transform.localRotation = Quaternion.Euler(-90f, 0f, 0.0f);
             victim.transform.position += raisedOffset;
             victim.transform.SetParent(gameObject.transform);
+            pickedUp = true;
             Debug.Log("Prince is raised up!");
         }
     }
@@ -171,5 +180,30 @@ public class NormalMinion : Enemy {
     {
         Disable(punchDisableTime);
         punchedDown = true;
+    }
+
+    public void TossPrince()
+    {
+        Debug.Log("prince is tossed");
+        gameManager.Lose();
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        ReleasePrince();
+    }
+
+    public void ReleasePrince()
+    {
+        if (pickedUp)
+        {
+            Transform princeTransform = transform.Find("Prince");
+            princeTransform.position += raisedOffset;
+            princeTransform.SetParent(null);
+        }
+        pickedUp = false;
+        pickingUp = false;
+        
     }
 }

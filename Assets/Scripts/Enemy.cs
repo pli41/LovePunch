@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-	public void Disable()
+	public virtual void Disable()
 	{
 		//Debug.Log ("Disabled");
 		disableTimer = new Timer(disabledTime, Recover, false);

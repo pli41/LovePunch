@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour {
 
         );
         */
-        currentLevel = levels[0];
+        currentLevel = levels[1];
         creating = false;
 
     }

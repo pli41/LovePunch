@@ -39,7 +39,7 @@ public class CameraBlock : MonoBehaviour {
         meshRend.enabled = start;
         BlockCamera();
 
-        if (start)
+        if (start && currentState == blockState.idle)
         {
             currentState = blockState.fadingToBlack;
         }
@@ -62,7 +62,6 @@ public class CameraBlock : MonoBehaviour {
     {
         if (!fadingToBlack)
         {
-            currentState = blockState.fadingToBlack;
             fadingToBlack = true;
             animator.SetTrigger("FadeToBlack");
         }
@@ -70,7 +69,7 @@ public class CameraBlock : MonoBehaviour {
         {
             Color color = meshRend.material.color;
             meshRend.material.color = new Color(color.r, color.g, color.b, transparency);
-            if (transparency == 1 )
+            if (transparency == 1f )
             {
                 currentState = blockState.Black;
             }
@@ -79,6 +78,7 @@ public class CameraBlock : MonoBehaviour {
 
     public void HandleFadingBlackTo()
     {
+        Debug.Log(234);
         if (!fadingBlackTo)
         {
             fadingBlackTo = true;
@@ -108,6 +108,7 @@ public class CameraBlock : MonoBehaviour {
     {
         BlockCamera();
         movie.Play();
+        Debug.Log("123");
     }
 
     void BlockCamera()

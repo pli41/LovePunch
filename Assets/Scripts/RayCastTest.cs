@@ -19,18 +19,20 @@ public class RayCastTest : MonoBehaviour
 		device = hand.GetDevice ();
         RaycastHit raycastHit;
         GameObject gameObject;
-		Debug.DrawRay (transform.position, transform.forward);
+		Debug.DrawRay (transform.position, transform.forward*1000f);
         if (Physics.Raycast(transform.position, transform.forward, out raycastHit, Mathf.Infinity, LayerMask.GetMask("UI"), QueryTriggerInteraction.Collide))
         {
 			Debug.Log ("Hit UI");
             gameObject = raycastHit.collider.gameObject;
 			if (gameObject.GetComponent<Button>())
             {
-                Debug.Log(gameObject.name + " button pressed");
-				//gameObject.GetComponent<Button> ().on;
-				if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger )){
-					gameObject.GetComponent<Button> ().onClick.Invoke ();
-				}
+                gameObject.GetComponent<Image>().color = Color.red;
+                //gameObject.GetComponent<Button> ().on;
+                if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger )){
+                    Debug.Log(gameObject.name + " button pressed");
+                    gameObject.GetComponent<Button> ().onClick.Invoke ();
+                    
+                }
             }
             //Do sth. with the found GameObject here
         }

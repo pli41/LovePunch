@@ -729,7 +729,7 @@ MonoBehaviour:
   throwFactor: 3
   afterMass: 1
   target: {fileID: 0}
-  raisedOffset: {x: 0, y: 1.45, z: 0.53}
+  raisedOffset: {x: 0, y: 1.45, z: 0}
   punchDisableTime: 0
   punchSounds:
   - {fileID: 8300000, guid: f729fa0e0c0d20a44b6b18b8402814b6, type: 3}
