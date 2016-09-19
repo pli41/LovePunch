@@ -19,7 +19,7 @@ public class CameraBlock : MonoBehaviour {
     Animator animator;
     bool fadingToBlack;
     bool fadingBlackTo;
-    bool endingNext;
+    public bool endingNext;
 
     public float transparency;
     public enum blockState { idle, fadingToBlack, Black, fadingBlackTo};
@@ -98,18 +98,23 @@ public class CameraBlock : MonoBehaviour {
 
     public void Finish()
     {
-        currentState = blockState.idle;
-        fadingBlackTo = false;
-        fadingToBlack = false;
-        start = false;
-        if (!endingNext)
+        if (start)
         {
-            gameManager.StartGame();
+            currentState = blockState.idle;
+            fadingBlackTo = false;
+            fadingToBlack = false;
+            start = false;
+            if (!endingNext)
+            {
+                endingNext = true;
+                gameManager.StartGame();
+            }
+            else
+            {
+                Debug.Log("Load King Level");
+            }
         }
-        else
-        {
-            Debug.Log("Load King Level");
-        }
+
         
     }
 

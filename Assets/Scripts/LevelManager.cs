@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelManager : MonoBehaviour {
     public GameManager gameManager;
     public MinionSpawner[] spawners;
-    public Level[] levels = new Level[5];
+    public Level[] levels = new Level[4];
 
     public Level currentLevel;
     Timer waveTimer;
@@ -29,9 +29,11 @@ public class LevelManager : MonoBehaviour {
     bool finishInvoking;
     bool princeSpoken;
     bool kingSpoken;
+    AudioSource[] audiosources;
 
     // Use this for initialization
     void Start () {
+        audiosources = GetComponents<AudioSource>();
         /*
         levels[0] = new Level(
             1,
@@ -77,13 +79,10 @@ public class LevelManager : MonoBehaviour {
             new float[] { 10f, 30f, 30f, 30f }
         );
         */
-
-
-
         levels[0] = new Level(
             1,
             new int[][] {
-                new int[] { 0 },
+                new int[] { },
             },
             new float[] { 5f}
         );
@@ -91,7 +90,7 @@ public class LevelManager : MonoBehaviour {
         levels[1] = new Level(
             2,
             new int[][] {
-                new int[] { 1},
+                new int[] { },
             },
             new float[] { 5f}
         );
@@ -99,7 +98,7 @@ public class LevelManager : MonoBehaviour {
         levels[2] = new Level(
             3,
             new int[][] {
-                new int[] { 1},
+                new int[] { },
 
             },
             new float[] { 5f}
@@ -108,10 +107,11 @@ public class LevelManager : MonoBehaviour {
         levels[3] = new Level(
             4,
             new int[][] {
-                new int[] { 0}
+                new int[] { }
             },
             new float[] { 5f}
         );
+        Debug.Log(levels.Length);
         /*
         levels[1] = new Level(
 
@@ -138,7 +138,6 @@ public class LevelManager : MonoBehaviour {
 	void Update () {
         if (GameManager.state == GameManager.gameState.InGame)
         {
-            
             if (betweenLevelFinished)
             {
                 HandleSpawning();
@@ -152,11 +151,16 @@ public class LevelManager : MonoBehaviour {
 
     void HandleBetweenLevels()
     {
-        if (!finishInvoking)
+        if (KingVoiceIndex < KingVoices.Length && PrinceVoiceIndex < PrinceVoices.Length)
         {
-            Invoke("KingSpeaks", 5f);
-            Invoke("PrinceSpeaks", 10f);
-            finishInvoking = true;
+            if (!finishInvoking)
+            {
+                Invoke("KingSpeaks", 1f);
+                Invoke("PrinceSpeaks", 2f);
+                finishInvoking = true;
+            }
+
+
         }
 
         if (kingSpoken && princeSpoken)
@@ -171,20 +175,21 @@ public class LevelManager : MonoBehaviour {
 
     void KingSpeaks()
     {
-
+        AudioPlay.PlaySound(audiosources[0], KingVoices[KingVoiceIndex]);
         KingVoiceIndex++;
         kingSpoken = true;
     }
 
     void PrinceSpeaks()
     {
+        AudioPlay.PlaySound(audiosources[1], PrinceVoices[PrinceVoiceIndex]);
         PrinceVoiceIndex++;
-        finishInvoking = false;
         princeSpoken = true;
     }
 
     void HandleSpawning()
     {
+        Debug.Log("handle spawning");
 		if (!creating && !levelGenerationDone)
         {
             creating = true;
@@ -230,6 +235,7 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
+            Debug.Log("level generation set");
             levelGenerationDone = true;
         }
         creating = false;
@@ -242,10 +248,10 @@ public class LevelManager : MonoBehaviour {
 
     public void SetupNextLevel()
     {
-        betweenLevelFinished = false;
+        
         if (currentLevel.levelNum < levels.Length)
         {
-            Debug.Log(currentLevel.levelNum + " current Level Num, " + "Going to level " + currentLevel.levelNum);
+            Debug.Log(currentLevel.levelNum + " current Level Num, " + "Going to level " + (currentLevel.levelNum+1) + " because we have " + levels.Length + " levels");
             currentLevel = levels[currentLevel.levelNum];
         }
         else
@@ -262,9 +268,12 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void ResetLevel(){
-		currentWave = 0;
+        betweenLevelFinished = false;
+        currentWave = 0;
 		levelGenerationDone = false;
-	}
+        finishInvoking = false;
+
+    }
 
     public class RandomLevel
     {
@@ -301,8 +310,7 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-	public bool GetLevelGeneration(){
-	
+	public bool GetLevelGeneration() {
 		return levelGenerationDone;
 	}
 
