@@ -104,6 +104,12 @@ public class Enemy : MonoBehaviour {
 	{
         punchedDown = false;
         disabled = false;
+        if (transform.parent != null)
+        {
+            transform.parent.gameObject.GetComponent<Hand>().isSomethingPicked = false;
+            gameObject.transform.SetParent(null);
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        }
 	}
 
 	public float GetThrowFactor(){

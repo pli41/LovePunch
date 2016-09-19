@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject[] minions;
     public LevelManager levelManager;
-    public enum gameState {BeforeGame, Intro, InGame, BetweenLevels, King1, King2, AfterGame };
+    public enum gameState {BeforeGame, Intro, InGame, BetweenLevels, King, AfterGame };
     public static gameState state;
 	public gameState stateTest;
     
@@ -58,6 +58,10 @@ public class GameManager : MonoBehaviour {
         {
 
         }
+        else if (state == gameState.King)
+        {
+            cameraBlock.start = true;
+        }
 	}
 
     public void StartIntro()
@@ -70,9 +74,12 @@ public class GameManager : MonoBehaviour {
     {
 		Debug.Log ("Start game");
         state = gameState.InGame;
-
-
 		lightManager.StartGameLight ();
+        
+    }
+
+    public void StartTheme()
+    {
         if (!BGMaudioSources[0].isPlaying)
         {
             AudioPlay.PlaySound(BGMaudioSources[0], themesong);

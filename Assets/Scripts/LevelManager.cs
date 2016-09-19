@@ -16,9 +16,23 @@ public class LevelManager : MonoBehaviour {
 
     int[] pickedSpawners;
 
+    [SerializeField]
+    float levelIntervals;
+
+    [SerializeField]
+    AudioClip[] KingVoices;
+    int KingVoiceIndex;
+    [SerializeField]
+    AudioClip[] PrinceVoices;
+    int PrinceVoiceIndex;
+    bool betweenLevelFinished;
+    bool finishInvoking;
+    bool princeSpoken;
+    bool kingSpoken;
+
     // Use this for initialization
     void Start () {
-
+        
         levels[0] = new Level(
             1,
             new int[][] {
@@ -41,7 +55,7 @@ public class LevelManager : MonoBehaviour {
             new float[] { 10f, 20f, 20f, 20f }
         );
 
-        levels[1] = new Level(
+        levels[2] = new Level(
             3,
             new int[][] {
                 new int[] { 1, 3, 0 },
@@ -52,7 +66,7 @@ public class LevelManager : MonoBehaviour {
             new float[] { 10f, 25f, 25f, 25f }
         );
 
-        levels[1] = new Level(
+        levels[3] = new Level(
             4,
             new int[][] {
                 new int[] { 0, 0, 0, 4 },
@@ -79,7 +93,7 @@ public class LevelManager : MonoBehaviour {
 
         );
         */
-        currentLevel = levels[1];
+        currentLevel = levels[0];
         creating = false;
 
     }
@@ -88,8 +102,49 @@ public class LevelManager : MonoBehaviour {
 	void Update () {
         if (GameManager.state == GameManager.gameState.InGame)
         {
-            HandleSpawning();
+            
+            if (betweenLevelFinished)
+            {
+                HandleSpawning();
+            }
+            else
+            {
+                HandleBetweenLevels();
+            }
         }
+    }
+
+    void HandleBetweenLevels()
+    {
+        if (!finishInvoking)
+        {
+            Invoke("KingSpeaks", 5f);
+            Invoke("PrinceSpeaks", 10f);
+            finishInvoking = true;
+        }
+
+        if (kingSpoken && princeSpoken)
+        {
+            betweenLevelFinished = true;
+            kingSpoken = false;
+            princeSpoken = false;
+        }
+    }
+
+
+
+    void KingSpeaks()
+    {
+
+        KingVoiceIndex++;
+        kingSpoken = true;
+    }
+
+    void PrinceSpeaks()
+    {
+        PrinceVoiceIndex++;
+        finishInvoking = false;
+        princeSpoken = true;
     }
 
     void HandleSpawning()
@@ -122,8 +177,6 @@ public class LevelManager : MonoBehaviour {
         {
             pickedSpawners[i] = Random.Range(0, spawners.Length-1);
         }
-        Debug.Log(pickedSpawners);
-
         int minionIndex = 0;
         foreach (int spawnerNum in pickedSpawners)
         {
@@ -153,8 +206,17 @@ public class LevelManager : MonoBehaviour {
 
     public void SetupNextLevel()
     {
-        GameManager.state = GameManager.gameState.BetweenLevels;
-        currentLevel = levels[currentLevel.levelNum];
+        betweenLevelFinished = false;
+        GameManager.state = GameManager.gameState.InGame;
+        if (currentLevel.levelNum >= levels.Length)
+        {
+            currentLevel = levels[currentLevel.levelNum];
+        }
+        else
+        {
+            GameManager.state = GameManager.gameState.King;
+        }
+
 		ResetLevel ();
     }
 

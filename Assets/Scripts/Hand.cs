@@ -40,7 +40,7 @@ public class Hand : MonoBehaviour
     [SerializeField]
     AudioClip throwBomb;
 
-    bool isSomethingPicked = false;
+    public bool isSomethingPicked = false;
 	GameManager gameManager;
 
 

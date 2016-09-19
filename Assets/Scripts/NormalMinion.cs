@@ -199,11 +199,10 @@ public class NormalMinion : Enemy {
         if (pickedUp)
         {
             Transform princeTransform = transform.Find("Prince");
-            princeTransform.position += raisedOffset;
+            princeTransform.position -= raisedOffset;
             princeTransform.SetParent(null);
         }
         pickedUp = false;
         pickingUp = false;
-        
     }
 }
