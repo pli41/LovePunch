@@ -21,10 +21,11 @@ public class Prince : MonoBehaviour {
     AudioClip[] hurtByPlayerSounds;
 
 	GameManager gameManager;
-
+    Animator animator;
 
     // Use this for initialization
     void Start () {
+        animator = GetComponent<Animator>();
         originalPos = transform.position;
         originalRot = transform.rotation;
         isDeath = false;
@@ -91,5 +92,19 @@ public class Prince : MonoBehaviour {
         transform.rotation = originalRot;
 	}
 
-   
+    public void ActivateRagdoll()
+    {
+        GetComponent<RagdollTest>().ActivateRagdoll();
+        animator.SetBool("terrified", false);
+    }
+
+    public void DeactivateRagdoll()
+    {
+        GetComponent<RagdollTest>().DeactivateRagdoll();
+    }
+
+    public void SetTerrify(bool state)
+    {
+        animator.SetBool("terrified", state);
+    }
 }

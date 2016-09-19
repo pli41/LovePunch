@@ -8,8 +8,11 @@ public class RagdollTest : MonoBehaviour
     private Collider[] _childrenColliders;
     private bool _getPunched;
 
+    Rigidbody savedRigid;
+
     void Awake()
     {
+        savedRigid = GetComponent<Rigidbody>();
         _childrenRigidBodies = this.GetComponentsInChildren<Rigidbody>();
         _childrenColliders = this.GetComponentsInChildren<Collider>();
         _getPunched = false;
@@ -33,13 +36,23 @@ public class RagdollTest : MonoBehaviour
 
     public void ActivateRagdoll()
     {
-        Debug.Log("get Punched. Ragdoll now");
         EnableRigidboiesKinematicInChildren(false);
-
         EnableCollidersInChildren(true);
         EnableCollidersInThis(false);
         Destroy(this.GetComponent<Rigidbody>());
         this.GetComponent<Animator>().enabled = false;
+    }
+
+    public void DeactivateRagdoll()
+    {
+        EnableRigidboiesKinematicInChildren(true);
+        EnableCollidersInChildren(false);
+        EnableCollidersInThis(true);
+        Rigidbody rigid = gameObject.AddComponent<Rigidbody>();
+        rigid.isKinematic = savedRigid.isKinematic;
+        rigid.mass = savedRigid.mass;
+        rigid.useGravity = savedRigid.useGravity;
+        this.GetComponent<Animator>().enabled = true;
     }
 
     public void ActivateRagdoll(Vector3 punchVelocity, Vector3 point)

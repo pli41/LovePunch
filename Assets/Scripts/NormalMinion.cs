@@ -186,6 +186,7 @@ public class NormalMinion : Enemy {
 
         if (col.gameObject.CompareTag("Prince") && !targetIsPlayer)  // angie
         {
+            col.gameObject.GetComponent<Prince>().SetTerrify(true);
             Debug.Log(col.gameObject.name);
             pickingUp = true;
             raisePrinceTimer = new Timer(2f, RaisePrince, col.gameObject, false);
@@ -211,8 +212,7 @@ public class NormalMinion : Enemy {
     {
         if (col.gameObject.CompareTag("Prince"))
         {
-            
-            
+            col.gameObject.GetComponent<Prince>().SetTerrify(false);
             if (pickingUp)
             {
                 pickingUp = false;
