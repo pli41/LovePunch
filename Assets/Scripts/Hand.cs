@@ -204,14 +204,19 @@ public class Hand : MonoBehaviour
         {
 			if (!isSomethingPicked && col.transform.parent == null) {
 				if (device.GetTouch (SteamVR_Controller.ButtonMask.Trigger)) {
-					Vector3 movePrincessToPoint = transform.position;
-					movePrincessToPoint.y = col.gameObject.transform.position.y;
+                    col.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+                    Vector3 movePrincessToPoint = transform.position;
+					//movePrincessToPoint.y = col.gameObject.transform.position.y;
 					col.gameObject.transform.position = movePrincessToPoint;
-                    col.gameObject.GetComponent<Prince>().ActivateRagdoll();
+
+                    //col.gameObject.GetComponent<Prince>().ActivateRagdoll();
+                    //col.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 				}
                 if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
                 {
-                    col.gameObject.GetComponent<Prince>().DeactivateRagdoll();
+                    //col.gameObject.GetComponent<Prince>().DeactivateRagdoll();
+                    col.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 }
 
             }

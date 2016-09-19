@@ -15,7 +15,6 @@ public class RagdollTest : MonoBehaviour
         savedRigid = GetComponent<Rigidbody>();
         _childrenRigidBodies = this.GetComponentsInChildren<Rigidbody>();
         _childrenColliders = this.GetComponentsInChildren<Collider>();
-        _getPunched = false;
     }
 
     // Use this for initialization
@@ -25,7 +24,6 @@ public class RagdollTest : MonoBehaviour
         EnableIsDynamicsInThis(false);
         EnableCollidersInChildren(false);
         EnableCollidersInThis(true);
-        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     // Update is called once per frame
@@ -62,13 +60,15 @@ public class RagdollTest : MonoBehaviour
         Rigidbody rigidPicked = _childrenRigidBodies[0];
         foreach (Rigidbody rigid in _childrenRigidBodies)
         {
+            rigid.mass = 1f;
+            rigid.AddForce(punchVelocity * 5f, ForceMode.Impulse);
             float dist = Vector3.Distance(rigid.transform.position, point);
             if (dist < smallestDistance)
             {
                 rigidPicked = rigid;
             }
         }
-        rigidPicked.AddForceAtPosition(punchVelocity * 20f, point, ForceMode.Impulse);
+        //rigidPicked.AddForceAtPosition(punchVelocity*10f, point, ForceMode.Impulse);
 
     }
 

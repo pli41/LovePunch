@@ -51,7 +51,15 @@ public class Bomb : MonoBehaviour {
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
 
                 if (rb != null)
+                {
+                    if (hit.gameObject.GetComponent<Enemy>())
+                    {
+                        hit.gameObject.GetComponent<Enemy>().ragdollCtrl.ActivateRagdoll();
+                    }
+                    
                     rb.AddExplosionForce(power, transform.position, explosionRadius, 2.0F, ForceMode.Impulse);
+                }
+                    
                 hit.gameObject.GetComponent<Enemy>().ReceiveDamage(damage);
             }
 

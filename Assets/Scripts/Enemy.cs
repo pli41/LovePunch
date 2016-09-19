@@ -179,9 +179,10 @@ public class Enemy : MonoBehaviour {
 		untertaken = true;
         bloodAnimation.GetComponent<ParticleSystem>().collision.SetPlane(0, GameObject.FindGameObjectWithTag("Ground").transform);
         bloodAnimation.SetActive(true);
-        
-        
-		Destroy (healthBarObj);
+        //ragdollCtrl.ActivateRagdoll();
+
+
+        Destroy (healthBarObj);
         Destroy(gameObject, 10f);
         GameManager.existingMinions.Remove(gameObject);
         

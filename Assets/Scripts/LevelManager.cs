@@ -34,14 +34,14 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         audiosources = GetComponents<AudioSource>();
-        /*
+        
         levels[0] = new Level(
             1,
             new int[][] {
+                new int[] { 1, 3, 3, 3, 1, 2, 2 },
                 new int[] { 0, 0 },
 				new int[] { 0, 0, 0, 0 },
-                new int[] { 0, 0, 0, 0, 0, 0},
-                new int[] { 1, 4, 4, 4, 1, 2, 2 }
+                new int[] { 0, 0, 0, 0, 0, 0}
             },
             new float[] { 5f, 20f, 20f, 30f}
         );
@@ -78,8 +78,8 @@ public class LevelManager : MonoBehaviour {
             },
             new float[] { 10f, 30f, 30f, 30f }
         );
-        */
-
+        
+        /*
         
         levels[0] = new Level(
             1,
@@ -113,7 +113,7 @@ public class LevelManager : MonoBehaviour {
             },
             new float[] { 5f}
         );
-        
+        */
         //Debug.Log(levels.Length);
         /*
         levels[1] = new Level(

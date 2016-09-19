@@ -62,8 +62,8 @@ public class BomberMinion : Enemy {
                     Vector3 targetPoint = target.position;
                     targetPoint.y = transform.position.y;
                     transform.LookAt(targetPoint);
-                    Vector3 destPos = new Vector3(target.position.x, transform.position.y, target.position.z);
-                    transform.position = Vector3.MoveTowards(transform.position, destPos, GetSpeed() * Time.deltaTime);
+                    //Vector3 destPos = new Vector3(target.position.x, transform.position.y, target.position.z);
+                    //transform.position = Vector3.MoveTowards(transform.position, destPos, GetSpeed() * Time.deltaTime);
                 }
             }
             else
@@ -71,7 +71,7 @@ public class BomberMinion : Enemy {
 				Debug.Log ("Go back");
                 transform.LookAt(target);
                 transform.Rotate(0, 180, 0);
-				transform.Translate(Vector3.forward * Time.deltaTime * GetSpeed());
+				//transform.Translate(Vector3.forward * Time.deltaTime * GetSpeed());
             }
         }
         else
@@ -100,14 +100,21 @@ public class BomberMinion : Enemy {
 
     void ThrowBomb()
     {
-        isBombDropped = true;
-        bombChild.SetParent(null);
-        Rigidbody bombRigidBody = bombChild.gameObject.AddComponent<Rigidbody>();
-        bombRigidBody.mass = 1;
-        bombRigidBody.isKinematic = false;
-        bombChild.gameObject.GetComponent<Bomb>().DetachFromEnemy();
-        bombChild.gameObject.GetComponents<Collider>()[0].enabled = true;
-        bombChild.gameObject.GetComponents<Collider>()[1].enabled = true;
+        if (!isBombDropped && bombChild)
+        {
+            isBombDropped = true;
+            bombChild.SetParent(null);
+
+            Rigidbody bombRigidBody = bombChild.gameObject.AddComponent<Rigidbody>();
+            Debug.Log(bombRigidBody);
+
+            bombRigidBody.mass = 1;
+            bombRigidBody.isKinematic = false;
+            bombChild.gameObject.GetComponent<Bomb>().DetachFromEnemy();
+            bombChild.gameObject.GetComponents<Collider>()[0].enabled = true;
+            bombChild.gameObject.GetComponents<Collider>()[1].enabled = true;
+        }
+        
     }
 
     //Out of Range
