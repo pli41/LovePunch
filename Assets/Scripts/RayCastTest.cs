@@ -31,7 +31,6 @@ public class RayCastTest : MonoBehaviour
                 if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger )){
                     Debug.Log(gameObject.name + " button pressed");
                     gameObject.GetComponent<Button> ().onClick.Invoke ();
-                    
                 }
             }
             //Do sth. with the found GameObject here
