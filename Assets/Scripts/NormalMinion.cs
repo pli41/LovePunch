@@ -53,7 +53,7 @@ public class NormalMinion : Enemy {
     void FindTarget(){
         if (target == null)
         {
-            if (Random.Range(0f, 1f) < 0f)
+            if (Random.Range(0f, 1f) >= 0f)
             {
                 target = gameManager.player.transform;
                 targetIsPlayer = true;
@@ -76,8 +76,8 @@ public class NormalMinion : Enemy {
 
     public void ComeTowards()
     {
-        
-		if (!CheckDisabled())
+        animator.SetBool("ReadyToRun", false);
+        if (!CheckDisabled())
         {
             if (target != null && !CheckDeath() && isGrounded)
             {
@@ -100,8 +100,10 @@ public class NormalMinion : Enemy {
                 if (checkValid)
                 {
                     //Debug.Log(gameObject.name + " is coming towards");
-                    animator.SetBool("ReadyToRun", true);
+                    
                     animator.SetBool("InAttackRange", false);
+                    animator.SetBool("InThrowRange", false);
+                    animator.SetBool("ReadyToRun", true);
                     Vector3 targetPoint = target.position;
                     targetPoint.y = transform.position.y;
                     transform.LookAt(targetPoint);
@@ -109,8 +111,6 @@ public class NormalMinion : Enemy {
                     //transform.position = Vector3.MoveTowards(transform.position, destPos, GetSpeed() * Time.deltaTime);
                     
                 }
-
-                
             }
         }
         else
@@ -150,7 +150,7 @@ public class NormalMinion : Enemy {
             {
                 if (target.parent == null)
                 {
-                    animator.SetBool("InAttackRange", true);
+                    animator.SetBool("InThrowRange", true);
                     raisePrinceTimer.RunTimer();
                     transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
                 }
@@ -159,7 +159,7 @@ public class NormalMinion : Enemy {
 
             if (pickedUp)
             {
-                animator.SetBool("InAttackRange", true);
+                animator.SetBool("InThrowRange", true);
                 tossTimer.RunTimer();
                 transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             }

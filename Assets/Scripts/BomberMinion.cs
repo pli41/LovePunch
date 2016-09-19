@@ -10,14 +10,16 @@ public class BomberMinion : Enemy {
     
     [SerializeField]
     AudioClip[] punchSounds;
-    Transform bombChild;
+    
     AudioSource audioSource;
     
+
+    [SerializeField]
+    Transform bombChild;
 
     // Use this for initialization
     void Start()
     {
-        bombChild = transform.Find("Bomb");
         FindTarget();
         audioSource = GetComponent<AudioSource>();
         SetupUI();
@@ -39,7 +41,7 @@ public class BomberMinion : Enemy {
     {
         if (target == null)
         {
-            target = GameObject.FindWithTag("Prince").GetComponent<Transform>();
+            target = GameObject.FindWithTag("Player").GetComponent<Transform>();
         }
     }
 
@@ -81,7 +83,7 @@ public class BomberMinion : Enemy {
     //InRange
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Prince"))
+        if (col.gameObject.CompareTag("Player"))
         {
             inRange = true;
 
@@ -104,15 +106,17 @@ public class BomberMinion : Enemy {
         bombRigidBody.mass = 1;
         bombRigidBody.isKinematic = false;
         bombChild.gameObject.GetComponent<Bomb>().DetachFromEnemy();
+        bombChild.gameObject.GetComponents<Collider>()[0].enabled = true;
+        bombChild.gameObject.GetComponents<Collider>()[1].enabled = true;
     }
 
     //Out of Range
     void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.CompareTag("Princess"))
+        if (col.gameObject.CompareTag("Player"))
         {
             inRange = false;
-            Destroy(gameObject, 5f);
+            Invoke("Death", 3f);
         }
     }
 

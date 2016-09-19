@@ -67,7 +67,7 @@ public class RagdollTest : MonoBehaviour
 
             foreach (Rigidbody _childRigidBody in _childrenRigidBodies)
             {
-                
+
                 if (_childRigidBody.gameObject.name != gameObject.name)
                 {
                     _childRigidBody.isKinematic = _toKinematic;
