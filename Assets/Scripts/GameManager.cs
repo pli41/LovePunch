@@ -62,6 +62,10 @@ public class GameManager : MonoBehaviour {
         else if (state == gameState.King)
         {
             cameraBlock.start = true;
+            foreach (AudioSource audioSource in BGMaudioSources)
+            {
+                audioSource.Stop();
+            }
         }
 	}
 
