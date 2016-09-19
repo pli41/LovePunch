@@ -304,7 +304,7 @@ public class Hand : MonoBehaviour
         if (hit.CompareTag("Enemy"))
         {
             String EnemyName = hit.GetComponent<Enemy>().GetName();
-            if (col.contacts.Length > 0)
+            if (col.contacts.Length > 0 && transformVelocity.magnitude > 2f)
             {
                 if (lastPunchedMinionId != 0 && lastPunchedMinionId == hit.GetInstanceID())
                 {
@@ -357,7 +357,7 @@ public class Hand : MonoBehaviour
             transformVelocity *= powerPunchMul;
         }
 
-        device.TriggerHapticPulse(3000);
+        //device.TriggerHapticPulse(3000);
 
         //SteamVR_Controller.Input (0).TriggerHapticPulse (3800);
 
@@ -382,22 +382,18 @@ public class Hand : MonoBehaviour
         AudioPlay.PlayRandomSound(audioSource, punchSounds);
         
         GameObject obj = rigidBody.gameObject;
-        Enemy currrentEnemy = obj.GetComponent<Enemy>();
-        float damage = transformVelocity.magnitude * 5f;
+        
 
         if (obj.CompareTag("Enemy"))
         {
+            Enemy currrentEnemy = obj.GetComponent<Enemy>();
+            float damage = transformVelocity.magnitude * 5f;
             if (currrentEnemy.killCheck(damage))
             {
-                rigidBody.gameObject.GetComponent<Enemy>().SetUpAfterDeath();
-                rigidBody.AddForceAtPosition(transformVelocity, point, ForceMode.Impulse);
+                rigidBody.gameObject.GetComponent<Enemy>().SetUpAfterDeath(transformVelocity, point);
+                //rigidBody.AddForceAtPosition(transformVelocity, point, ForceMode.Impulse);
             }
             obj.GetComponent<Enemy>().ReceiveDamage(damage);
-        }
-
-        if (GameManager.state == GameManager.gameState.BeforeGame)
-        {
-			gameManager.StartGame();
         }
     }
 

@@ -24,9 +24,13 @@ public class NormalMinion : Enemy {
     bool isGrounded;
     bool targetIsPlayer;
 
+    [SerializeField]
+    float attackRange;
+
     // Use this for initialization
     void Start()
     {
+        ragdollCtrl = GetComponent<RagdollTest>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         FindTarget();
@@ -49,9 +53,9 @@ public class NormalMinion : Enemy {
     void FindTarget(){
         if (target == null)
         {
-            if (Random.Range(0f, 1f) <= 1f)
+            if (Random.Range(0f, 1f) < 0f)
             {
-                target = GameObject.FindWithTag("Player").GetComponent<Transform>();
+                target = gameManager.player.transform;
                 targetIsPlayer = true;
             }
             else
@@ -95,7 +99,7 @@ public class NormalMinion : Enemy {
 
                 if (checkValid)
                 {
-                    Debug.Log(gameObject.name + " is coming towards");
+                    //Debug.Log(gameObject.name + " is coming towards");
                     animator.SetBool("ReadyToRun", true);
                     animator.SetBool("InAttackRange", false);
                     Vector3 targetPoint = target.position;
@@ -115,6 +119,19 @@ public class NormalMinion : Enemy {
         }
     }
 
+    public bool CheckInRange()
+    {
+        if (Vector3.Distance(transform.position, target.position) <= attackRange)
+        {
+            inRange = true;
+        }
+        else
+        {
+            inRange = false;
+        }
+        return inRange;
+    }
+
     public void Attack()
     {
         /*
@@ -131,14 +148,20 @@ public class NormalMinion : Enemy {
         {
             if (pickingUp) // angie
             {
-                animator.SetBool("InAttackRange", true);
-                raisePrinceTimer.RunTimer();
+                if (target.parent == null)
+                {
+                    animator.SetBool("InAttackRange", true);
+                    raisePrinceTimer.RunTimer();
+                    transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+                }
+                
             }
 
             if (pickedUp)
             {
                 animator.SetBool("InAttackRange", true);
                 tossTimer.RunTimer();
+                transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             }
         }
     }
@@ -157,6 +180,7 @@ public class NormalMinion : Enemy {
             inRange = true;
             attackTimer = new Timer(2f, DealDamage, col.gameObject, true);
             animator.SetBool("InAttackRange", true);
+            
         }
 
 
@@ -187,12 +211,18 @@ public class NormalMinion : Enemy {
     {
         if (col.gameObject.CompareTag("Prince"))
         {
-            inRange = false;
+            
+            
             if (pickingUp)
             {
                 pickingUp = false;
                 raisePrinceTimer.Reset();
             }
+        }
+
+        if (col.gameObject.CompareTag("Player"))
+        {
+            inRange = false;
         }
     }
 
@@ -256,8 +286,19 @@ public class NormalMinion : Enemy {
     {
         Debug.Log("prince is tossed");
         animator.SetTrigger("ThrowTrigger");
+        Invoke("Toss", 1.5f);
         gameManager.Lose();
     }
+
+    public void Toss()
+    {
+        target.SetParent(null);
+        Rigidbody rigid = target.gameObject.GetComponent<Rigidbody>();
+        rigid.isKinematic = false;
+        rigid.useGravity = true;
+        rigid.AddForce((transform.forward + transform.up) * 100f, ForceMode.Impulse);
+    }
+    
 
     public override void Disable()
     {
@@ -267,7 +308,7 @@ public class NormalMinion : Enemy {
 
     public void ReleasePrince()
     {
-        Debug.Log(gameObject.name + " Released");
+        //Debug.Log(gameObject.name + " Released");
         if (pickedUp || pickingUp)
         {
             

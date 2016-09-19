@@ -191,7 +191,7 @@ public class LevelManager : MonoBehaviour {
 
     void HandleSpawning()
     {
-        Debug.Log("handle spawning");
+//Debug.Log("handle spawning");
 		if (!creating && !levelGenerationDone)
         {
             creating = true;

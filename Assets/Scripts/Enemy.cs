@@ -177,9 +177,10 @@ public class Enemy : MonoBehaviour {
     {
         //DisableColliders();
 		untertaken = true;
-        bloodAnimation.SetActive(true);
-        ragdollCtrl.ActivateRagdoll();
         bloodAnimation.GetComponent<ParticleSystem>().collision.SetPlane(0, GameObject.FindGameObjectWithTag("Ground").transform);
+        bloodAnimation.SetActive(true);
+        
+        
 		Destroy (healthBarObj);
         Destroy(gameObject, 10f);
         GameManager.existingMinions.Remove(gameObject);
@@ -212,10 +213,11 @@ public class Enemy : MonoBehaviour {
 
     }
 
-    public void SetUpAfterDeath()
+    public void SetUpAfterDeath(Vector3 punchVelocity, Vector3 point)
     {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         GetComponent<Rigidbody>().mass = afterMass;
+        ragdollCtrl.ActivateRagdoll(punchVelocity, point);
     }
 
     public float GetHealth()

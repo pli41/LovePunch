@@ -35,10 +35,28 @@ public class RagdollTest : MonoBehaviour
     {
         Debug.Log("get Punched. Ragdoll now");
         EnableRigidboiesKinematicInChildren(false);
+
         EnableCollidersInChildren(true);
         EnableCollidersInThis(false);
         Destroy(this.GetComponent<Rigidbody>());
         this.GetComponent<Animator>().enabled = false;
+    }
+
+    public void ActivateRagdoll(Vector3 punchVelocity, Vector3 point)
+    {
+        this.ActivateRagdoll();
+        float smallestDistance = 99999f;
+        Rigidbody rigidPicked = _childrenRigidBodies[0];
+        foreach (Rigidbody rigid in _childrenRigidBodies)
+        {
+            float dist = Vector3.Distance(rigid.transform.position, point);
+            if (dist < smallestDistance)
+            {
+                rigidPicked = rigid;
+            }
+        }
+        rigidPicked.AddForceAtPosition(punchVelocity * 20f, point, ForceMode.Impulse);
+
     }
 
     // Disable the rigidbodies of Children
