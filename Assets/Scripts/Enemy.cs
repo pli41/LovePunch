@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
 
+    public RagdollTest ragdollCtrl;
+
     [SerializeField]
     new string name;
     [SerializeField]
@@ -52,6 +54,7 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        ragdollCtrl = GetComponent<RagdollTest>();
         isDead = false;
 		disabled = false;
         _childrenRigidBodies = this.GetComponentsInChildren<Rigidbody>();
@@ -172,14 +175,15 @@ public class Enemy : MonoBehaviour {
 
     public virtual void Death()
     {
-        //EnableRagdoll();
         //DisableColliders();
 		untertaken = true;
         bloodAnimation.SetActive(true);
+        ragdollCtrl.ActivateRagdoll();
         bloodAnimation.GetComponent<ParticleSystem>().collision.SetPlane(0, GameObject.FindGameObjectWithTag("Ground").transform);
 		Destroy (healthBarObj);
         Destroy(gameObject, 10f);
         GameManager.existingMinions.Remove(gameObject);
+        
     }
 
     protected virtual void OnCollisionEnter(Collision col)
@@ -198,34 +202,10 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-    public void EnableRagdoll()
-    {
-        if (_childrenRigidBodies != null)
-        {
-            foreach (Rigidbody _childRigidBody in _childrenRigidBodies)
-            {
-                _childRigidBody.isKinematic = true;
-            }          
-        }
-        Destroy(this.GetComponent<Rigidbody>());
-        this.GetComponent<Animator>().enabled = false;
-    }
 
 	public float GetCurrentVelocity(){
 		return transformVelocity.magnitude;	
 	}
-
-    public void DisableRagdoll()
-    {
-        if (_childrenRigidBodies != null)
-        {
-            foreach (Rigidbody _childRigidBody in _childrenRigidBodies)
-            {
-                _childRigidBody.isKinematic = false;
-            }
-            this.GetComponent<Animator>().enabled = true;
-        }
-    }
 
     public virtual void DealDamage(GameObject victim)
     {

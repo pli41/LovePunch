@@ -21,7 +21,7 @@ public class NormalMinion : Enemy {
     GameManager gameManager;
     AudioSource audioSource;
     Animator animator;
-
+    bool isGrounded;
     bool targetIsPlayer;
 
     // Use this for initialization
@@ -49,7 +49,7 @@ public class NormalMinion : Enemy {
     void FindTarget(){
         if (target == null)
         {
-            if (Random.Range(0f, 1f) <= 0.5f)
+            if (Random.Range(0f, 1f) <= 1f)
             {
                 target = GameObject.FindWithTag("Player").GetComponent<Transform>();
                 targetIsPlayer = true;
@@ -72,16 +72,41 @@ public class NormalMinion : Enemy {
 
     public void ComeTowards()
     {
+        
 		if (!CheckDisabled())
         {
-            if (target != null && !CheckDeath() && !pickedUp && !pickingUp)
+            if (target != null && !CheckDeath() && isGrounded)
             {
-                animator.SetBool("InAttackRange", false);
-                Vector3 targetPoint = target.position;
-                targetPoint.y = transform.position.y;
-                transform.LookAt(targetPoint);
-                Vector3 destPos = targetPoint;
-                transform.position = Vector3.MoveTowards(transform.position, destPos, GetSpeed() * Time.deltaTime);
+                bool checkValid = false;
+                if (targetIsPlayer)
+                {
+                    if (!inRange)
+                    {
+                        checkValid = true;
+                    }
+                }
+                else
+                {
+                    if (!pickedUp && !pickingUp)
+                    {
+                        checkValid = true;
+                    }
+                }
+
+                if (checkValid)
+                {
+                    Debug.Log(gameObject.name + " is coming towards");
+                    animator.SetBool("ReadyToRun", true);
+                    animator.SetBool("InAttackRange", false);
+                    Vector3 targetPoint = target.position;
+                    targetPoint.y = transform.position.y;
+                    transform.LookAt(targetPoint);
+                    Vector3 destPos = targetPoint;
+                    //transform.position = Vector3.MoveTowards(transform.position, destPos, GetSpeed() * Time.deltaTime);
+                    
+                }
+
+                
             }
         }
         else
@@ -127,18 +152,20 @@ public class NormalMinion : Enemy {
     void OnTriggerEnter( Collider col)
     {
 
-        if ( col.gameObject.CompareTag("Player"))
+        if ( col.gameObject.CompareTag("Player") && targetIsPlayer)
         {
             inRange = true;
             attackTimer = new Timer(2f, DealDamage, col.gameObject, true);
+            animator.SetBool("InAttackRange", true);
         }
 
 
-        if (col.gameObject.CompareTag("Prince"))  // angie
+        if (col.gameObject.CompareTag("Prince") && !targetIsPlayer)  // angie
         {
             Debug.Log(col.gameObject.name);
             pickingUp = true;
             raisePrinceTimer = new Timer(2f, RaisePrince, col.gameObject, false);
+            animator.SetBool("InThrowRange", true);
         }
     }
 
@@ -169,7 +196,23 @@ public class NormalMinion : Enemy {
         }
     }
 
-	protected override void OnCollisionEnter(Collision col)
+    void OnCollisionStay(Collision col)
+    {
+        if (col.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    protected override void OnCollisionEnter(Collision col)
 	{
         base.OnCollisionEnter(col);
 		if (col.gameObject.CompareTag ("Enemy")) 
@@ -189,6 +232,7 @@ public class NormalMinion : Enemy {
 
     public override void DealDamage(GameObject victim)
     {
+        animator.SetTrigger("AttackTrigger");
         victim.GetComponent<Player>().ReceiveDamage(GetDamage());
     }
 
