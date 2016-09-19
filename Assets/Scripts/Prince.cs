@@ -9,6 +9,9 @@ public class Prince : MonoBehaviour {
     private float health;
     private bool isDeath;
 
+    Vector3 originalPos;
+    Quaternion originalRot;
+
     [SerializeField]
     public Hand[] hands;
 
@@ -22,6 +25,8 @@ public class Prince : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        originalPos = transform.position;
+        originalRot = transform.rotation;
         isDeath = false;
 		gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager>();
 	}
@@ -82,6 +87,8 @@ public class Prince : MonoBehaviour {
 		{
 			hand.onFire = false;
 		}
+        transform.position = originalPos;
+        transform.rotation = originalRot;
 	}
 
    

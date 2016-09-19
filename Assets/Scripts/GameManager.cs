@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour {
     public void Reset()
     {
 		state = gameState.InGame;
+        prince.Reset();
 		levelManager.RestartCurrentLevel ();
         GameObject[] currentMinions = GameObject.FindGameObjectsWithTag("Enemy");
 		foreach (GameObject gameObject in currentMinions)

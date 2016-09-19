@@ -13,6 +13,9 @@ public class Bomb : MonoBehaviour {
     float explosionRadius = 4.0f;
 
 	public GameObject explosionEffect;
+    public AudioClip explodeSFX;
+
+    AudioSource audiosource;
 
     Timer bombTimer;
 
@@ -35,9 +38,9 @@ public class Bomb : MonoBehaviour {
     //Explode and add explosive force
     public void Explode()
     {
-        
+        AudioPlay.PlaySound(audiosource, explodeSFX);
 		Debug.Log ("EXPLODE");
-
+        
         Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, explosionRadius);
 
         foreach (Collider hit in colliders)
