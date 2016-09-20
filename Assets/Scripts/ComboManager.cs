@@ -6,6 +6,7 @@ public class ComboManager : MonoBehaviour {
     public int currentCombo;
     GameManager gameManager;
 
+
 	// Use this for initialization
 	void Start () {
 	    

@@ -1513,7 +1513,7 @@ MonoBehaviour:
   bloodAnimation: {fileID: 1000010700410160}
   bloodStain: {fileID: 1000011431726228, guid: 5cff61a81834d3e48a680db83da492b7, type: 2}
   throwFactor: 3
-  afterMass: 10
+  afterMass: 5
   target: {fileID: 0}
   raisedOffset: {x: 0, y: 1.45, z: 0}
   punchDisableTime: 0

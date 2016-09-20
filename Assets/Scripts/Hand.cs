@@ -108,6 +108,10 @@ public class Hand : MonoBehaviour
         if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
         {
             //Debug.Log("You activated TouchDown on the Trigger");
+            if (GameManager.state == GameManager.gameState.BeforeGame)
+            {
+                gameManager.StartIntro();
+            }
         }
 
         if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
@@ -157,6 +161,29 @@ public class Hand : MonoBehaviour
 
     void OnTriggerEnter (Collider col)
     {
+        //Rajeev
+        if (col.CompareTag("KingMinion"))
+        {
+            Debug.Log(device.velocity.magnitude);
+
+            if (device.velocity.magnitude > 0.8)
+            {
+                //Debug.Log("PUNCH");
+                tossObject(col.attachedRigidbody);
+                //Punch(col.attachedRigidbody);
+            }
+        }
+
+        //Rajeev
+        if (col.CompareTag("King"))
+        {
+            Debug.Log("GAME COMPLETE");
+
+            Renderer r = GameObject.FindWithTag("EndScreen").GetComponent<Renderer>();
+            MovieTexture movie = (MovieTexture)r.material.mainTexture;
+            movie.Play();
+        }
+
         /*
         if (col.CompareTag("Enemy"))
         {
@@ -200,6 +227,8 @@ public class Hand : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
+
+
         if (col.CompareTag("Prince"))
         {
 			if (!isSomethingPicked && col.transform.parent == null) {

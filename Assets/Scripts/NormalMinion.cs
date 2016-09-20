@@ -30,7 +30,7 @@ public class NormalMinion : Enemy {
     // Use this for initialization
     void Start()
     {
-        
+        ragdollCtrl = GetComponent<RagdollTest>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         FindTarget();

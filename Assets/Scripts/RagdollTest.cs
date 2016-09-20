@@ -53,15 +53,15 @@ public class RagdollTest : MonoBehaviour
         this.GetComponent<Animator>().enabled = true;
     }
 
-    public void ActivateRagdoll(Vector3 punchVelocity, Vector3 point)
+    public void ActivateRagdoll(Vector3 punchVelocity, Vector3 point, float afterMass)
     {
         this.ActivateRagdoll();
         float smallestDistance = 99999f;
         Rigidbody rigidPicked = _childrenRigidBodies[0];
         foreach (Rigidbody rigid in _childrenRigidBodies)
         {
-            rigid.mass = 1f;
-            rigid.AddForce(punchVelocity * 5f, ForceMode.Impulse);
+            rigid.mass = afterMass;
+            rigid.AddForce(punchVelocity, ForceMode.Impulse);
             float dist = Vector3.Distance(rigid.transform.position, point);
             if (dist < smallestDistance)
             {

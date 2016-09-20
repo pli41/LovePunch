@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelManager : MonoBehaviour {
     public GameManager gameManager;
     public MinionSpawner[] spawners;
-    public Level[] levels = new Level[4];
+    public Level[] levels = new Level[1];
 
     public Level currentLevel;
     Timer waveTimer;
@@ -38,12 +38,12 @@ public class LevelManager : MonoBehaviour {
         levels[0] = new Level(
             1,
             new int[][] {
-                new int[] { 1, 3, 3, 3, 1, 2, 2 },
                 new int[] { 0, 0 },
-				new int[] { 0, 0, 0, 0 },
-                new int[] { 0, 0, 0, 0, 0, 0}
+				new int[] { 0, 0, 0},
+                new int[] { 0, 0, 0},
+                new int[] { 0, 0}
             },
-            new float[] { 5f, 20f, 20f, 30f}
+            new float[] { 5f, 15f, 20f, 5f}
         );
 
         levels[1] = new Level(
@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour {
                 new int[] { 1, 3, 0 },
                 new int[] { 3, 0, 1, 1 },
                 new int[] { 0, 1, 1, 1, 3 },
-                new int[] { 1, 1, 1, 0, 0, 0, 3 }
+                new int[] { 1, 1, 1, 0, 0, 3 }
             },
             new float[] { 10f, 25f, 25f, 25f }
         );
@@ -71,45 +71,21 @@ public class LevelManager : MonoBehaviour {
         levels[3] = new Level(
             4,
             new int[][] {
-                new int[] { 0, 0, 0, 4 },
+                new int[] { 4},
+                new int[] { 0, 0, 0},
                 new int[] { 0, 0, 1, 1, 1, 4 },
                 new int[] { 4, 4, 0, 3, 1 },
-                new int[] { 4, 4, 3, 3, 1, 0, 0 }
+                new int[] { 4, 4, 3, 3, 1, 0}
             },
-            new float[] { 10f, 30f, 30f, 30f }
+            new float[] { 10f, 2f, 15f, 30f, 30f }
         );
         
-        /*
         
+        /*
         levels[0] = new Level(
             1,
             new int[][] {
                 new int[] { },
-            },
-            new float[] { 5f}
-        );
-
-        levels[1] = new Level(
-            2,
-            new int[][] {
-                new int[] { },
-            },
-            new float[] { 5f}
-        );
-
-        levels[2] = new Level(
-            3,
-            new int[][] {
-                new int[] { },
-
-            },
-            new float[] { 5f}
-        );
-
-        levels[3] = new Level(
-            4,
-            new int[][] {
-                new int[] { }
             },
             new float[] { 5f}
         );

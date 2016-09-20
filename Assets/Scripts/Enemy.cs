@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour {
 	float throwFactor;
 
     [SerializeField]
-    float afterMass;
+    public float afterMass;
 
 	Vector3 transformVelocity;
 	Vector3 oldPos;
@@ -218,7 +218,7 @@ public class Enemy : MonoBehaviour {
     {
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         GetComponent<Rigidbody>().mass = afterMass;
-        ragdollCtrl.ActivateRagdoll(punchVelocity, point);
+        ragdollCtrl.ActivateRagdoll(punchVelocity, point, afterMass);
     }
 
     public float GetHealth()

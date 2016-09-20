@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CameraBlock : MonoBehaviour {
 
@@ -111,7 +112,8 @@ public class CameraBlock : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Load King Level");
+                SceneManager.LoadScene("Boss");
+                
             }
         }
 
@@ -136,5 +138,4 @@ public class CameraBlock : MonoBehaviour {
         transform.position = VRCamera.transform.position + VRCamera.transform.forward * forwardOffset;
         transform.LookAt(VRCamera.transform.position);
     }
-
 }

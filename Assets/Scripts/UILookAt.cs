@@ -15,8 +15,8 @@ public class UILookAt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 targetPos = new Vector3(target.position.x, transform.position.y, target.position.z);
-        transform.LookAt(targetPos);
+		//Vector3 targetPos = new Vector3(target.position.x, transform.position.y, target.position.z);
+        //transform.LookAt(targetPos);
 
 
 	}

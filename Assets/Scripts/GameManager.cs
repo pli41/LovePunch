@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		BGM = GameObject.FindGameObjectWithTag ("BGM");
         BGMaudioSources = BGM.GetComponents<AudioSource>();
-		state = gameState.InGame;
+		state = gameState.BeforeGame;
         themesong = assignThemesong;
         loseClip = assignLoseSong;
         existingMinions = new List<GameObject>();

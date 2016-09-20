@@ -54,10 +54,11 @@ public class Bomb : MonoBehaviour {
                 {
                     if (hit.gameObject.GetComponent<Enemy>())
                     {
-                        hit.gameObject.GetComponent<Enemy>().ragdollCtrl.ActivateRagdoll();
+                        Vector3 forceDirection = hit.transform.position - transform.position;
+                        hit.gameObject.GetComponent<Enemy>().ragdollCtrl.ActivateRagdoll(forceDirection * power, transform.position, hit.gameObject.GetComponent<Enemy>().afterMass);
                     }
                     
-                    rb.AddExplosionForce(power, transform.position, explosionRadius, 2.0F, ForceMode.Impulse);
+                    //rb.AddExplosionForce(power, transform.position, explosionRadius, 2.0F, ForceMode.Impulse);
                 }
                     
                 hit.gameObject.GetComponent<Enemy>().ReceiveDamage(damage);
@@ -66,7 +67,7 @@ public class Bomb : MonoBehaviour {
 			//Prince damage
 			if (hit.gameObject.CompareTag ("Prince")) 
 			{
-				hit.gameObject.GetComponent<Prince> ().ReceiveDamage (damage/4f, false);
+				hit.gameObject.GetComponent<Prince> ().ReceiveDamage (damage/8f, false);
 			}
         }
 

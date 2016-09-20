@@ -1502,7 +1502,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 200
-  power: 20
+  power: 100
   explosionRadius: 3
   explosionEffect: {fileID: 1000013514699078, guid: 58c5d0cb34a4b564fbd5fcceb4bf1135,
     type: 2}
